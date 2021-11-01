@@ -2,22 +2,16 @@
   <main class="content">
     <form action="#" method="post">
       <div class="content__wrapper">
-        <h1 class="title title--big">{{ titlePage }}</h1>
+        <h1 class="title title--big">Конструктор пиццы</h1>
         <div class="content__dough">
           <div class="sheet">
-            <h2 class="title title--small sheet__title">
-              {{ titleSelectDough }}
-            </h2>
+            <h2 class="title title--small sheet__title">Выберите тесто</h2>
             <div class="sheet__content dough">
               <label
                 v-for="pizza in pizza.dough"
                 :key="pizza.id"
                 class="dough__input"
-                :class="[
-                  pizza.name == 'Тонкое'
-                    ? 'dough__input--light'
-                    : 'dough__input--large',
-                ]"
+                :class="getClassDough(pizza)"
               >
                 <input
                   type="radio"
@@ -40,11 +34,7 @@
                 v-for="size in pizza.sizes"
                 :key="size.id"
                 class="diameter__input"
-                :class="{
-                  'diameter__input--small': size.id === 1,
-                  'diameter__input--normal': size.id === 2,
-                  'diameter__input--big': size.id === 3,
-                }"
+                :class="`diameter__input--${getClassSize(size)}`"
               >
                 <input
                   type="radio"
@@ -60,7 +50,7 @@
         <div class="content__ingredients">
           <div class="sheet">
             <h2 class="title title--small sheet__title">
-              {{ titleIngredients }}
+              Выберите ингредиенты
             </h2>
             <div class="sheet__content ingredients">
               <div class="ingredients__sauce">
@@ -84,7 +74,7 @@
                   >
                     <span
                       class="filling"
-                      :class="`filling--${ingredient.image}`"
+                      :class="`filling--${getNameImg(ingredient)}`"
                     >
                       {{ ingredient.name }}
                     </span>
@@ -117,7 +107,7 @@
         </div>
         <div class="content__pizza">
           <label class="input">
-            <span class="visually-hidden">{{ titlePizza }}</span>
+            <span class="visually-hidden">Название пиццы</span>
             <input
               type="text"
               name="pizza_name"
@@ -151,11 +141,23 @@ export default {
   data() {
     return {
       pizza,
-      titlePage: "Конструктор пиццы",
-      titleSelectDough: "Выберите тесто",
-      titleIngredients: "Выберите ингредиенты",
-      titlePizza: "Название пиццы",
     };
+  },
+  methods: {
+    getClassDough({ name }) {
+      return name === "Тонкое" ? "dough__input--light" : "dough__input--large";
+    },
+    getNameImg({ image }) {
+      const img = image.split(/[/\\./]+/);
+      return img[img.length - 2];
+    },
+    getClassSize({ id }) {
+      return {
+        small: id === 1,
+        normal: id === 2,
+        big: id === 3,
+      };
+    },
   },
 };
 </script>
