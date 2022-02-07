@@ -14,7 +14,7 @@
             value="light"
             :item="pizza.id"
             :checked="pizza.id === pizzaID"
-            @change="getID"
+            @change="$emit('change', pizza.id)"
           />
           <b>{{ pizza.name }}</b>
           <span>{{ pizza.description }}</span>
@@ -43,9 +43,6 @@ export default {
   methods: {
     getClassDough({ name }) {
       return name === "Тонкое" ? "dough__input--light" : "dough__input--large";
-    },
-    getID(id) {
-      this.sizeID = id;
     },
   },
 };

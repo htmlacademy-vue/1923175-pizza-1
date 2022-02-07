@@ -9,16 +9,15 @@
         @input="(e) => $emit('input', e.target.value)"
       />
     </label>
-    <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
-        <div class="pizza__wrapper">
-          <div class="pizza__filling pizza__filling--ananas"></div>
-          <div class="pizza__filling pizza__filling--bacon"></div>
-          <div class="pizza__filling pizza__filling--cheddar"></div>
+    <AppDrop @drop="onDrop">
+      <div class="content__constructor">
+        <div class="pizza" :class="getFoundation">
+          <div class="pizza__wrapper">
+            {{ getClassComputed }}
+          </div>
         </div>
       </div>
-    </div>
-
+    </AppDrop>
     <div class="content__result">
       <p>Итого: 0 ₽</p>
       <button type="button" class="button" disabled="">Готовьте!</button>
@@ -26,7 +25,44 @@
   </div>
 </template>
 <script>
+import AppDrop from "@/common/components/AppDrop";
+
 export default {
   name: "BuilderPizzaView",
+  components: {
+    AppDrop,
+  },
+  data: () => ({
+    ingredients: [],
+  }),
+  props: {
+    size: {
+      type: String,
+      default: "",
+    },
+    doughId: {
+      type: [Number, String],
+      default: 1,
+    },
+    saucesId: {
+      type: [Number, String],
+      default: 1,
+    },
+  },
+  computed: {
+    getFoundation() {
+      return `pizza--foundation--${this.doughId === 2 ? "big" : "small"}-${
+        this.saucesId === 1 ? "tomato" : "creamy"
+      }`;
+    },
+    getClassComputed() {
+      return this.ingredients;
+    },
+  },
+  methods: {
+    onDrop(ingredient) {
+      this.ingredients.push(ingredient);
+    },
+  },
 };
 </script>

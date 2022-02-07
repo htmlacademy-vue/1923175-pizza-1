@@ -18,6 +18,10 @@ export default {
       type: Object,
       required: true,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     onDrag({ dataTransfer }) {

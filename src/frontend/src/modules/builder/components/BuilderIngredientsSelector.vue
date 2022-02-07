@@ -28,10 +28,8 @@
               :key="ingredient.id"
               class="ingredients__item"
             >
-              <AppDrag :transfer-data="ingredient">
-                <SelectorItem :ingredient="ingredient" />
-                <ItemCounter />
-              </AppDrag>
+              <SelectorItem :ingredient="ingredient" />
+              <ItemCounter />
             </li>
           </ul>
         </div>
@@ -43,12 +41,10 @@
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import RadioButton from "@/common/components/RadioButton";
-import AppDrag from "@/common/components/AppDrag";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: {
-    AppDrag,
     SelectorItem,
     ItemCounter,
     RadioButton,
@@ -68,7 +64,7 @@ export default {
   },
   methods: {
     getID(id) {
-      this.saucesID = id;
+      this.$emit("change", id);
     },
   },
 };

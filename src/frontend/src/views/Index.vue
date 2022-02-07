@@ -3,13 +3,18 @@
     <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
-        <BuilderDoughSelector :dough="pizza.dough" />
+        <BuilderDoughSelector :dough="pizza.dough" @change="getDoughID" />
         <BuilderSizeSelector :sizes="pizza.sizes" />
         <BuilderIngredientsSelector
           :sauces="pizza.sauces"
           :ingredients="pizza.ingredients"
+          @change="getSaucesId"
         />
-        <BuilderPizzaView v-model="pizzasName" />
+        <BuilderPizzaView
+          v-model="pizzasName"
+          :dough-id="doughID"
+          :sauces-id="saucesID"
+        />
       </div>
     </form>
   </main>
@@ -26,6 +31,8 @@ export default {
   data: () => ({
     pizza,
     pizzasName: "",
+    doughID: 1,
+    saucesID: 1,
   }),
   components: {
     BuilderDoughSelector,
@@ -37,6 +44,12 @@ export default {
     getNameImg({ image }) {
       const img = image.split(/[/\\./]+/);
       return img[img.length - 2];
+    },
+    getDoughID(id) {
+      this.doughID = id;
+    },
+    getSaucesId(id) {
+      this.saucesID = id;
     },
   },
 };
