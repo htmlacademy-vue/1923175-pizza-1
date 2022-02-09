@@ -13,7 +13,9 @@
       <div class="content__constructor">
         <div class="pizza" :class="getFoundation">
           <div class="pizza__wrapper">
-            {{ getClassComputed }}
+            <template v-for="(item, index) in getComputedClass">
+              <div :class="item" :key="index"></div>
+            </template>
           </div>
         </div>
       </div>
@@ -55,8 +57,11 @@ export default {
         this.saucesId === 1 ? "tomato" : "creamy"
       }`;
     },
-    getClassComputed() {
-      return this.ingredients;
+    getComputedClass() {
+      return this.ingredients.map((item) => {
+        const image = item.image.match(/(\w+).svg/);
+        return ["pizza__filling", `pizza__filling--${image[1]}`];
+      });
     },
   },
   methods: {
