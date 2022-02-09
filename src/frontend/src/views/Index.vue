@@ -7,8 +7,9 @@
         <BuilderSizeSelector :sizes="pizza.sizes" />
         <BuilderIngredientsSelector
           :sauces="pizza.sauces"
-          :ingredients="pizza.ingredients"
-          :amount="amount"
+          :ingredients="ingredients"
+          @on-reduce="onReduce"
+          @on-increase="onIncrease"
           @change="getSaucesId"
         />
         <BuilderPizzaView
@@ -29,18 +30,34 @@ import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 
 export default {
   name: "IndexHome",
-  data: () => ({
-    pizza,
-    pizzasName: "",
-    doughID: 1,
-    saucesID: 1,
-    amount: 0,
-  }),
+  data: () => {
+    const ingredients = pizza.ingredients.map((item) => ({
+      ...item,
+      amount: 0,
+    }));
+
+    return {
+      pizza,
+      pizzasName: "",
+      doughID: 1,
+      saucesID: 1,
+      ingredients,
+    };
+  },
   components: {
     BuilderDoughSelector,
     BuilderIngredientsSelector,
     BuilderPizzaView,
     BuilderSizeSelector,
+  },
+  computed: {
+    totalPrice() {
+      console.log(
+        this.pizza.sizes[0].multiplier * this.pizza.dough[0].price +
+          this.pizza.sauces[0].price
+      );
+      return 1;
+    },
   },
   methods: {
     getNameImg({ image }) {
@@ -52,6 +69,12 @@ export default {
     },
     getSaucesId(id) {
       this.saucesID = id;
+    },
+    onReduce({ id, amount }) {
+      console.log(id, amount);
+    },
+    onIncrease({ id, amount }) {
+      console.log(id, amount);
     },
   },
 };

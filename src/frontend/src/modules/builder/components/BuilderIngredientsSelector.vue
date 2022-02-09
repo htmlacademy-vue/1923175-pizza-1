@@ -28,12 +28,8 @@
               :key="ingredient.id"
               class="ingredients__item"
             >
-              <SelectorItem :ingredient="updateIngredientData(ingredient)" />
-              <ItemCounter
-                @on-reduce="onReduce"
-                @on-increase="onIncrease"
-                :ingredient="ingredient"
-              />
+              <SelectorItem :ingredient="ingredient" />
+              <ItemCounter :ingredient="ingredient" />
             </li>
           </ul>
         </div>
