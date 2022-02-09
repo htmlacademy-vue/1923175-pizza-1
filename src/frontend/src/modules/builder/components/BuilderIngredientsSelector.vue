@@ -28,8 +28,12 @@
               :key="ingredient.id"
               class="ingredients__item"
             >
-              <SelectorItem :ingredient="ingredient" />
-              <ItemCounter />
+              <SelectorItem :ingredient="updateIngredientData(ingredient)" />
+              <ItemCounter
+                @on-reduce="onReduce"
+                @on-increase="onIncrease"
+                :ingredient="ingredient"
+              />
             </li>
           </ul>
         </div>
@@ -51,6 +55,8 @@ export default {
   },
   data: () => ({
     saucesID: 1,
+    amount: 0,
+    ingredientId: 0,
   }),
   props: {
     sauces: {
@@ -65,6 +71,20 @@ export default {
   methods: {
     getID(id) {
       this.$emit("change", id);
+    },
+    onReduce({ id, amount }) {
+      this.ingredientId = id;
+      this.amount = amount;
+    },
+    onIncrease({ id, amount }) {
+      this.ingredientId = id;
+      this.amount = amount;
+    },
+    updateIngredientData(ingredient) {
+      return {
+        ...ingredient,
+        amount: ingredient["id"] === this.ingredientId ? this.amount : 0,
+      };
     },
   },
 };

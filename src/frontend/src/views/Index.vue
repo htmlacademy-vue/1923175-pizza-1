@@ -8,6 +8,7 @@
         <BuilderIngredientsSelector
           :sauces="pizza.sauces"
           :ingredients="pizza.ingredients"
+          :amount="amount"
           @change="getSaucesId"
         />
         <BuilderPizzaView
@@ -33,6 +34,7 @@ export default {
     pizzasName: "",
     doughID: 1,
     saucesID: 1,
+    amount: 0,
   }),
   components: {
     BuilderDoughSelector,
