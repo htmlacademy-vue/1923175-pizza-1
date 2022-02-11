@@ -21,7 +21,7 @@
       </div>
     </AppDrop>
     <div class="content__result">
-      <p>Итого: 0 ₽</p>
+      <p>Итого: {{ totalPrice }} ₽</p>
       <button type="button" class="button" disabled="">Готовьте!</button>
     </div>
   </div>
@@ -34,9 +34,6 @@ export default {
   components: {
     AppDrop,
   },
-  data: () => ({
-    ingredients: [],
-  }),
   props: {
     size: {
       type: String,
@@ -50,6 +47,14 @@ export default {
       type: [Number, String],
       default: 1,
     },
+    totalPrice: {
+      type: Number,
+      default: 0,
+    },
+    ingredients: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     getFoundation() {
@@ -58,15 +63,26 @@ export default {
       }`;
     },
     getComputedClass() {
-      return this.ingredients.map((item) => {
-        const image = item.image.match(/(\w+).svg/);
-        return ["pizza__filling", `pizza__filling--${image[1]}`];
-      });
+      return this.ingredients
+        .filter((item) => item.amount > 0)
+        .map((item) => {
+          const image = item.image.match(/(\w+).svg/);
+          const result = [];
+          if (item.amount === 2) {
+            result.push("pizza__filling--second");
+          }
+
+          if (item.amount === 3) {
+            result.push("pizza__filling--third");
+          }
+
+          return ["pizza__filling", `pizza__filling--${image[1]}`, ...result];
+        });
     },
   },
   methods: {
     onDrop(ingredient) {
-      this.ingredients.push(ingredient);
+      this.$emit("on-drop", ingredient);
     },
   },
 };

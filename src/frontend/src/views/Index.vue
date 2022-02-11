@@ -8,14 +8,14 @@
         <BuilderIngredientsSelector
           :sauces="pizza.sauces"
           :ingredients="ingredients"
-          @on-reduce="onReduce"
-          @on-increase="onIncrease"
           @change="getSaucesId"
         />
         <BuilderPizzaView
           v-model="pizzasName"
           :dough-id="doughID"
           :sauces-id="saucesID"
+          :total-price="totalPrice"
+          @on-drop="getDropIngredients"
         />
       </div>
     </form>
@@ -52,11 +52,16 @@ export default {
   },
   computed: {
     totalPrice() {
-      console.log(
+      return (
         this.pizza.sizes[0].multiplier * this.pizza.dough[0].price +
-          this.pizza.sauces[0].price
+        this.pizza.sauces[0].price +
+        this.ingredientsPrice
       );
-      return 1;
+    },
+    ingredientsPrice() {
+      return this.ingredients.reduce((acc, item) => {
+        return acc + item.price * item.amount;
+      }, 0);
     },
   },
   methods: {
@@ -70,11 +75,8 @@ export default {
     getSaucesId(id) {
       this.saucesID = id;
     },
-    onReduce({ id, amount }) {
-      console.log(id, amount);
-    },
-    onIncrease({ id, amount }) {
-      console.log(id, amount);
+    getDropIngredients(ingredient) {
+      this.ingredients.find((item) => item.id === ingredient.id);
     },
   },
 };

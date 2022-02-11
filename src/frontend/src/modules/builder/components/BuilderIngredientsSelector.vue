@@ -68,20 +68,6 @@ export default {
     getID(id) {
       this.$emit("change", id);
     },
-    onReduce({ id, amount }) {
-      this.ingredientId = id;
-      this.amount = amount;
-    },
-    onIncrease({ id, amount }) {
-      this.ingredientId = id;
-      this.amount = amount;
-    },
-    updateIngredientData(ingredient) {
-      return {
-        ...ingredient,
-        amount: ingredient["id"] === this.ingredientId ? this.amount : 0,
-      };
-    },
   },
 };
 </script>

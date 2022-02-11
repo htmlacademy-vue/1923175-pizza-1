@@ -4,16 +4,21 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isDisabledMinus"
-      @click="$emit('click', --amount)"
+      @click="onReduce"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
-    <input type="text" name="counter" class="counter__input" :value="amount" />
+    <input
+      type="text"
+      name="counter"
+      class="counter__input"
+      :value="ingredient.amount"
+    />
     <button
       type="button"
       class="counter__button counter__button--plus"
       :disabled="isDisabledPlus"
-      @click="$emit('click', ++amount)"
+      @click="onIncrease"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -35,10 +40,18 @@ export default {
   },
   computed: {
     isDisabledMinus() {
-      return this.amount < 1;
+      return this.ingredient.amount < 1;
     },
     isDisabledPlus() {
-      return this.amount >= MAX_INGREDIENTS;
+      return this.ingredient.amount >= MAX_INGREDIENTS;
+    },
+  },
+  methods: {
+    onReduce() {
+      --this.ingredient.amount;
+    },
+    onIncrease() {
+      ++this.ingredient.amount;
     },
   },
 };
