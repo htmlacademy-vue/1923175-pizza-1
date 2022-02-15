@@ -1,27 +1,26 @@
 <template>
-  <main class="content">
-    <form action="#" method="post">
-      <div class="content__wrapper">
-        <h1 class="title title--big">Конструктор пиццы</h1>
-        <BuilderDoughSelector :dough="pizza.dough" @change="getDoughID" />
-        <BuilderSizeSelector :sizes="pizza.sizes" />
-        <BuilderIngredientsSelector
-          :sauces="pizza.sauces"
-          :ingredients="ingredients"
-          @change="getSaucesId"
-        />
-        <BuilderPizzaView
-          v-model="pizzasName"
-          :pizza-name="pizzasName"
-          :dough-id="doughID"
-          :sauces-id="saucesID"
-          :total-price="totalPrice"
-          :ingredients="ingredients"
-          @on-drop="getDropIngredients"
-        />
-      </div>
-    </form>
-  </main>
+  <form action="#" method="post">
+    <div class="content__wrapper">
+      <h1 class="title title--big">Конструктор пиццы</h1>
+      <BuilderDoughSelector :dough="pizza.dough" @change="getDoughID" />
+      <BuilderSizeSelector :sizes="pizza.sizes" />
+      <BuilderIngredientsSelector
+        :sauces="pizza.sauces"
+        :ingredients="ingredients"
+        @change="getSaucesId"
+      />
+      <BuilderPizzaView
+        v-model="pizzasName"
+        :pizza-name="pizzasName"
+        :dough-id="doughID"
+        :sauces-id="saucesID"
+        :total-price="totalPrice"
+        :ingredients="ingredients"
+        @on-drop="getDropIngredients"
+        @click="handlerAddСart()"
+      />
+    </div>
+  </form>
 </template>
 <script>
 import pizza from "@/static/pizza.json";
@@ -79,6 +78,9 @@ export default {
     },
     getDropIngredients(ingredient) {
       this.ingredients.find((item) => item.id === ingredient.id);
+    },
+    handlerAddСart() {
+      this.$emit("click", this.totalPrice);
     },
   },
 };

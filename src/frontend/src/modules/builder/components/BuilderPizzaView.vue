@@ -22,7 +22,12 @@
     </AppDrop>
     <div class="content__result">
       <p>Итого: {{ totalPrice }} ₽</p>
-      <button type="button" class="button" :disabled="isDisabled">
+      <button
+        type="button"
+        class="button"
+        :disabled="isDisabled"
+        @click="$emit('click')"
+      >
         Готовьте!
       </button>
     </div>

@@ -7,7 +7,7 @@
           v-for="size in sizes"
           :key="size.id"
           class="diameter__input"
-          :class="`diameter__input--${getClassSize(size)}`"
+          :class="`diameter__input--${getClassSize(size.id)}`"
         >
           <RadioButton
             name="diameter"
@@ -40,12 +40,14 @@ export default {
     },
   },
   methods: {
-    getClassSize({ id }) {
-      return {
-        small: id === 1,
-        normal: id === 2,
-        big: id === 3,
-      };
+    getClassSize(id) {
+      if (id === 1) {
+        return "small";
+      } else if (id === 2) {
+        return "normal";
+      } else if (id === 3) {
+        return "big";
+      }
     },
     getSizeID(id) {
       this.sizeID = id;
