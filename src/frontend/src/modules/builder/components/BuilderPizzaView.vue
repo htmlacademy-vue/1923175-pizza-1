@@ -22,7 +22,9 @@
     </AppDrop>
     <div class="content__result">
       <p>Итого: {{ totalPrice }} ₽</p>
-      <button type="button" class="button" disabled="">Готовьте!</button>
+      <button type="button" class="button" :disabled="isDisabled">
+        Готовьте!
+      </button>
     </div>
   </div>
 </template>
@@ -34,6 +36,9 @@ export default {
   components: {
     AppDrop,
   },
+  data: () => ({
+    chosenIngredient: null,
+  }),
   props: {
     size: {
       type: String,
@@ -54,6 +59,10 @@ export default {
     ingredients: {
       type: Array,
       default: () => [],
+    },
+    pizzaName: {
+      type: String,
+      default: "",
     },
   },
   computed: {
@@ -78,6 +87,12 @@ export default {
 
           return ["pizza__filling", `pizza__filling--${image[1]}`, ...result];
         });
+    },
+    hasIngredients() {
+      return this.ingredients.some((ingredients) => ingredients.amount > 0);
+    },
+    isDisabled() {
+      return !this.hasIngredients || !this.pizzaName;
     },
   },
   methods: {

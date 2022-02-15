@@ -12,9 +12,11 @@
         />
         <BuilderPizzaView
           v-model="pizzasName"
+          :pizza-name="pizzasName"
           :dough-id="doughID"
           :sauces-id="saucesID"
           :total-price="totalPrice"
+          :ingredients="ingredients"
           @on-drop="getDropIngredients"
         />
       </div>
