@@ -1,8 +1,8 @@
 <template>
   <div class="app-layout">
-    <AppLayoutHeader />
+    <AppLayoutHeader :cart-total-price="totalPrice" />
     <main class="content">
-      <IndexHome />
+      <IndexHome @click="handlerAddСart($event)" />
     </main>
   </div>
 </template>
@@ -16,6 +16,14 @@ export default {
   components: {
     AppLayoutHeader,
     IndexHome,
+  },
+  data: () => ({
+    totalPrice: 0,
+  }),
+  methods: {
+    handlerAddСart(totalPrice) {
+      this.totalPrice = totalPrice;
+    },
   },
 };
 </script>
