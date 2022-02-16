@@ -2,12 +2,22 @@
   <form action="#" method="post">
     <div class="content__wrapper">
       <h1 class="title title--big">Конструктор пиццы</h1>
-      <BuilderDoughSelector :dough="pizza.dough" @change="getDoughID" />
-      <BuilderSizeSelector :sizes="pizza.sizes" />
+      <BuilderDoughSelector
+        :dough="pizza.dough"
+        :dough-id="doughID"
+        @change="getDoughID"
+      />
+      <BuilderSizeSelector
+        :sizes="pizza.sizes"
+        :size-id="sizeID"
+        @change="getSizeId"
+      />
       <BuilderIngredientsSelector
         :sauces="pizza.sauces"
         :ingredients="ingredients"
         @change="getSaucesId"
+        @onReduce="onReduce"
+        @onIncrease="onIncrease"
       />
       <BuilderPizzaView
         v-model="pizzasName"
@@ -17,6 +27,7 @@
         :total-price="totalPrice"
         :ingredients="ingredients"
         @click="handlerAddСart()"
+        @on-drop="getIngredient"
       />
     </div>
   </form>
@@ -39,8 +50,9 @@ export default {
     return {
       pizza,
       pizzasName: "",
-      doughID: 1,
-      saucesID: 1,
+      doughID: pizza.dough[0].id,
+      saucesID: pizza.sauces[0].id,
+      sizeID: pizza.sizes[0].id,
       ingredients,
     };
   },
@@ -53,9 +65,10 @@ export default {
   computed: {
     totalPrice() {
       return (
-        this.pizza.sizes[0].multiplier * this.pizza.dough[0].price +
-        this.pizza.sauces[0].price +
-        this.ingredientsPrice
+        (this.pizza.dough[0].price +
+          this.pizza.sauces[0].price +
+          this.ingredientsPrice) *
+        this.pizza.sizes.find(({ id }) => this.sizeID === id).multiplier
       );
     },
     ingredientsPrice() {
@@ -75,8 +88,20 @@ export default {
     getSaucesId(id) {
       this.saucesID = id;
     },
+    getSizeId(id) {
+      this.sizeID = id;
+    },
     handlerAddСart() {
       this.$emit("click", this.totalPrice);
+    },
+    onReduce(item) {
+      --item.amount;
+    },
+    onIncrease(item) {
+      ++item.amount;
+    },
+    getIngredient({ id }) {
+      this.onIncrease(this.ingredients.find((item) => item.id === id));
     },
   },
 };

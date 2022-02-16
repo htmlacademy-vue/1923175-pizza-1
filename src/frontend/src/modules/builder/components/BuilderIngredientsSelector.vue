@@ -29,7 +29,11 @@
               class="ingredients__item"
             >
               <SelectorItem :ingredient="ingredient" />
-              <ItemCounter :ingredient="ingredient" />
+              <ItemCounter
+                :ingredient="ingredient"
+                @onReduce="$emit('onReduce', $event)"
+                @onIncrease="$emit('onIncrease', $event)"
+              />
             </li>
           </ul>
         </div>

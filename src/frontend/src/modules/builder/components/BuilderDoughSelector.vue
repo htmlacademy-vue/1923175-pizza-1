@@ -13,7 +13,7 @@
             name="dough"
             value="light"
             :item="pizza.id"
-            :checked="pizza.id === pizzaID"
+            :checked="pizza.id === doughId"
             @change="$emit('change', pizza.id)"
           />
           <b>{{ pizza.name }}</b>
@@ -31,13 +31,14 @@ export default {
   components: {
     RadioButton,
   },
-  data: () => ({
-    pizzaID: 1,
-  }),
   props: {
     dough: {
       type: Array,
-      default: () => [],
+      required: true,
+    },
+    doughId: {
+      type: [Number, String],
+      required: true,
     },
   },
   methods: {

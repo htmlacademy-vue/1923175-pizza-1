@@ -22,9 +22,7 @@ export default {
   },
   computed: {
     isDisabled() {
-      return (
-        this.ingredient.amount === MAX_INGREDIENTS || this.ingredient.amount < 1
-      );
+      return this.ingredient.amount === MAX_INGREDIENTS;
     },
   },
   methods: {

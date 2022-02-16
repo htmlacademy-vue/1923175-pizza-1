@@ -14,7 +14,7 @@
             value="small"
             :item="size.id"
             :checked="size.id === sizeID"
-            @change="getSizeID"
+            @change="$emit('change', size.id)"
           />
           <span>{{ size.name }}</span>
         </label>
@@ -36,7 +36,11 @@ export default {
   props: {
     sizes: {
       type: Array,
-      default: () => [],
+      required: true,
+    },
+    sizeId: {
+      type: [Number, String],
+      required: true,
     },
   },
   methods: {
@@ -48,9 +52,6 @@ export default {
       } else if (id === 3) {
         return "big";
       }
-    },
-    getSizeID(id) {
-      this.sizeID = id;
     },
   },
 };

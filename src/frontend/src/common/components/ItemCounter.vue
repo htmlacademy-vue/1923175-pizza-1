@@ -4,7 +4,7 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isDisabledMinus"
-      @click="onReduce"
+      @click="$emit('onReduce', ingredient)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -18,7 +18,7 @@
       type="button"
       class="counter__button counter__button--plus"
       :disabled="isDisabledPlus"
-      @click="onIncrease"
+      @click="$emit('onIncrease', ingredient)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -35,7 +35,7 @@ export default {
   props: {
     ingredient: {
       type: Object,
-      default: () => {},
+      required: true,
     },
   },
   computed: {
@@ -44,14 +44,6 @@ export default {
     },
     isDisabledPlus() {
       return this.ingredient.amount >= MAX_INGREDIENTS;
-    },
-  },
-  methods: {
-    onReduce() {
-      --this.ingredient.amount;
-    },
-    onIncrease() {
-      ++this.ingredient.amount;
     },
   },
 };
