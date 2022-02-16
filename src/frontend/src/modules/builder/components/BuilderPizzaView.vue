@@ -42,7 +42,7 @@ export default {
     AppDrop,
   },
   data: () => ({
-    chosenIngredient: null,
+    chosenIngredients: [],
   }),
   props: {
     size: {
@@ -77,7 +77,7 @@ export default {
       }`;
     },
     getComputedClass() {
-      return this.ingredients
+      return this.chosenIngredients
         .filter((item) => item.amount > 0)
         .map((item) => {
           const image = item.image.match(/(\w+).svg/);
@@ -102,7 +102,9 @@ export default {
   },
   methods: {
     onDrop(ingredient) {
-      this.$emit("on-drop", ingredient);
+      this.chosenIngredients.push(
+        this.ingredients.find((item) => item.id === ingredient.id)
+      );
     },
   },
 };

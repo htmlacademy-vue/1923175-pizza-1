@@ -16,7 +16,6 @@
         :sauces-id="saucesID"
         :total-price="totalPrice"
         :ingredients="ingredients"
-        @on-drop="getDropIngredients"
         @click="handlerAddСart()"
       />
     </div>
@@ -75,9 +74,6 @@ export default {
     },
     getSaucesId(id) {
       this.saucesID = id;
-    },
-    getDropIngredients(ingredient) {
-      this.ingredients.find((item) => item.id === ingredient.id);
     },
     handlerAddСart() {
       this.$emit("click", this.totalPrice);
