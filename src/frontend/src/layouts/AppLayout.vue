@@ -1,28 +1,24 @@
 <template>
-  <div class="app-layout">
-    <AppLayoutHeader :cart-total-price="totalPrice" />
-    <main class="content">
-      <IndexHome @click="handlerAddСart($event)" />
-    </main>
-  </div>
+  <component :is="layout" :cart-total-price="cartTotalPrice">
+    <slot />
+  </component>
 </template>
 
 <script>
-import AppLayoutHeader from "@/layouts/AppLayoutHeader";
-import IndexHome from "@/views/Index";
+const defaultLayout = "AppLayoutDefault";
 
 export default {
   name: "AppLayout",
-  components: {
-    AppLayoutHeader,
-    IndexHome,
+  props: {
+    cartTotalPrice: {
+      type: Number,
+      default: 0,
+    },
   },
-  data: () => ({
-    totalPrice: 0,
-  }),
-  methods: {
-    handlerAddСart(totalPrice) {
-      this.totalPrice = totalPrice;
+  computed: {
+    layout() {
+      const layout = this.$route.meta.layout || defaultLayout;
+      return () => import(`@/layouts/${layout}.vue`);
     },
   },
 };
