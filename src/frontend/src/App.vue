@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <AppLayout>
-      <router-view />
+    <AppLayout :cart-total-price="cartTotalPrice">
+      <router-view @click="addCart" />
     </AppLayout>
   </div>
 </template>
@@ -11,6 +11,14 @@ export default {
   name: "App",
   components: {
     AppLayout,
+  },
+  data: () => ({
+    cartTotalPrice: 0,
+  }),
+  methods: {
+    addCart(price) {
+      this.cartTotalPrice = price;
+    },
   },
 };
 </script>
