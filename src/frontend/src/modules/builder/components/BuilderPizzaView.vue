@@ -6,7 +6,7 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
-        @input="(e) => $emit('input', e.target.value)"
+        @input="setPizzaName"
       />
     </label>
     <AppDrop @drop="onDrop">
@@ -34,7 +34,9 @@
   </div>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
 import AppDrop from "@/common/components/AppDrop";
+const { mapActions } = createNamespacedHelpers("Builder");
 
 export default {
   name: "BuilderPizzaView",
@@ -98,6 +100,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["setPizzaName"]),
     onDrop(ingredient) {
       this.$emit("on-drop", ingredient);
     },

@@ -14,7 +14,7 @@
             value="light"
             :item="pizza.id"
             :checked="pizza.id === doughId"
-            @change="$emit('change', pizza.id)"
+            @change="getDoughID(pizza.id)"
           />
           <b>{{ pizza.name }}</b>
           <span>{{ pizza.description }}</span>
@@ -24,8 +24,9 @@
   </div>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
 import RadioButton from "@/common/components/RadioButton";
-
+const { mapActions } = createNamespacedHelpers("Builder");
 export default {
   name: "BuilderDoughSelector",
   components: {
@@ -42,6 +43,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["getDoughID"]),
     getClassDough({ name }) {
       return name === "Тонкое" ? "dough__input--light" : "dough__input--large";
     },
