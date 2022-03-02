@@ -1,0 +1,2 @@
+export const SET_PIZZA_NAME = "SET_PIZZA_NAME";
+export const SET_INGREDIENTS = "SET_INGREDIENTS";
