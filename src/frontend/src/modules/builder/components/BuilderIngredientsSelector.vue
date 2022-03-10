@@ -42,7 +42,7 @@ import { createNamespacedHelpers } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import RadioButton from "@/common/components/RadioButton";
-const { mapActions } = createNamespacedHelpers("Builder");
+const { mapActions, mapState } = createNamespacedHelpers("Builder");
 
 export default {
   name: "BuilderIngredientsSelector",
@@ -51,20 +51,8 @@ export default {
     ItemCounter,
     RadioButton,
   },
-  data: () => ({
-    saucesID: 1,
-    amount: 0,
-    ingredientId: 0,
-  }),
-  props: {
-    sauces: {
-      type: Array,
-      default: () => [],
-    },
-    ingredients: {
-      type: Array,
-      default: () => [],
-    },
+  computed: {
+    ...mapState(["sauces", "saucesID", "ingredients"]),
   },
   methods: {
     ...mapActions(["getSaucesId"]),

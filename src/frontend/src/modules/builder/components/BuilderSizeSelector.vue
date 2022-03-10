@@ -13,7 +13,7 @@
             name="diameter"
             value="small"
             :item="size.id"
-            :checked="size.id === sizeId"
+            :checked="size.id === sizeID"
             @change="getSizeId(size.id)"
           />
           <span>{{ size.name }}</span>
@@ -25,22 +25,15 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 import RadioButton from "@/common/components/RadioButton";
-const { mapActions } = createNamespacedHelpers("Builder");
+const { mapActions, mapState } = createNamespacedHelpers("Builder");
 
 export default {
   name: "BuilderSizeSelector",
   components: {
     RadioButton,
   },
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
-    },
-    sizeId: {
-      type: [Number, String],
-      required: true,
-    },
+  computed: {
+    ...mapState(["sizes", "sizeID"]),
   },
   methods: {
     ...mapActions(["getSizeId"]),

@@ -13,7 +13,7 @@
             name="dough"
             value="light"
             :item="pizza.id"
-            :checked="pizza.id === doughId"
+            :checked="pizza.id === doughID"
             @change="getDoughID(pizza.id)"
           />
           <b>{{ pizza.name }}</b>
@@ -26,21 +26,14 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 import RadioButton from "@/common/components/RadioButton";
-const { mapActions } = createNamespacedHelpers("Builder");
+const { mapActions, mapState } = createNamespacedHelpers("Builder");
 export default {
   name: "BuilderDoughSelector",
   components: {
     RadioButton,
   },
-  props: {
-    dough: {
-      type: Array,
-      required: true,
-    },
-    doughId: {
-      type: [Number, String],
-      required: true,
-    },
+  computed: {
+    ...mapState(["dough", "doughID"]),
   },
   methods: {
     ...mapActions(["getDoughID"]),

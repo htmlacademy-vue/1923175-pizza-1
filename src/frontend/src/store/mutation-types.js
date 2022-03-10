@@ -5,3 +5,5 @@ export const GET_DOUGH_ID = "GET_DOUGH_ID";
 export const GET_SAUCES_ID = "GET_SAUCES_ID";
 export const ON_REDUCE = "ON_REDUCE";
 export const ON_INCREASE = "ON_INCREASE";
+export const ORDER_COMPLETED = "ORDER_COMPLETED";
+export const ADD_TO_CART = "ADD_TO_CART";

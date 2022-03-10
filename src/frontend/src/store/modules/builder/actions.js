@@ -1,6 +1,5 @@
 import {
   SET_PIZZA_NAME,
-  GET_TOTAL_PRICE,
   GET_SIZE_ID,
   GET_DOUGH_ID,
   GET_SAUCES_ID,
@@ -10,10 +9,6 @@ import {
 
 export const setPizzaName = ({ commit }, { target }) => {
   commit(SET_PIZZA_NAME, target.value);
-};
-
-export const addToCart = ({ commit }, totalPrice) => {
-  commit(GET_TOTAL_PRICE, totalPrice);
 };
 
 export const getSizeId = ({ commit }, id) => {
