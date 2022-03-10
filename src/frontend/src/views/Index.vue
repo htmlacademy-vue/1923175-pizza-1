@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     ...mapState(["pizzaName", "sizeID", "doughID", "saucesID", "ingredients"]),
-    ...mapGetters(["totalPrice"]),
+    ...mapGetters(["pizzaPrice"]),
   },
 };
 </script>

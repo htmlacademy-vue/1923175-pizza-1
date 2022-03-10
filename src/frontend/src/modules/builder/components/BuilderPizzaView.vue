@@ -21,12 +21,12 @@
       </div>
     </AppDrop>
     <div class="content__result">
-      <p>Итого: {{ totalPrice }} ₽</p>
+      <p>Итого: {{ pizzaPrice }} ₽</p>
       <button
         type="button"
         class="button"
         :disabled="isDisabled"
-        @click="onAddToCart(pizzaList)"
+        @click="onAddToCart"
       >
         Готовьте!
       </button>
@@ -43,8 +43,17 @@ export default {
     AppDrop,
   },
   computed: {
-    ...mapState("Builder", ["pizzaName", "doughID", "saucesID", "ingredients"]),
-    ...mapGetters("Builder", ["pizzaList", "totalPrice"]),
+    ...mapState("Builder", [
+      "pizzaName",
+      "doughID",
+      "saucesID",
+      "ingredients",
+      "sauces",
+      "dough",
+      "sizeID",
+      "sizes",
+    ]),
+    ...mapGetters("Builder", ["pizzaPrice"]),
     getFoundation() {
       return `pizza--foundation--${this.doughID === 2 ? "big" : "small"}-${
         this.saucesID === 1 ? "tomato" : "creamy"
@@ -75,8 +84,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("Builder", ["setPizzaName", "onIncrease"]),
-    ...mapActions("Cart", ["onAddToCart"]),
+    ...mapActions("Builder", ["setPizzaName", "onIncrease", "onAddToCart"]),
     getIngredient({ id }) {
       this.onIncrease(this.ingredients.find((item) => item.id === id));
     },

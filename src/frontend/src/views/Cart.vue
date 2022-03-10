@@ -6,9 +6,12 @@
           <div class="cart__title">
             <h1 class="title title--big">Корзина</h1>
           </div>
-          <ul class="cart-list sheet">
-            <template v-for="pizza in pizzaList">
-              <CartPizzaItem v-if="pizza" :item="pizza" :key="pizza.id" />
+          <div v-if="pizzas.length < 1" class="sheet cart__empty">
+            <p>В корзине нет ни одного товара</p>
+          </div>
+          <ul v-else class="cart-list sheet">
+            <template v-for="item in pizzas">
+              <CartPizzaItem :key="item.id" :item="item" />
             </template>
           </ul>
 
@@ -205,7 +208,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapActions, mapState } from "vuex";
 import CartOrderComplete from "@/modules/cart/components/CartOrderComplete";
 import CartPizzaItem from "@/modules/cart/components/CartPizzaItem";
 
@@ -217,7 +220,7 @@ export default {
   },
   computed: {
     ...mapState("Cart", ["isOrderComplete"]),
-    ...mapGetters("Builder", ["pizzaList"]),
+    ...mapState("Builder", ["pizzas"]),
   },
 
   methods: {

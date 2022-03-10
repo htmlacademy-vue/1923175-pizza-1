@@ -11,6 +11,7 @@ const ingredients = pizza.ingredients.map((item) => ({
 export default {
   namespaced: true,
   state: {
+    pizzas: [],
     dough: pizza.dough,
     ingredients: ingredients,
     sauces: pizza.sauces,
@@ -19,8 +20,7 @@ export default {
     sizeID: pizza.sizes[0].id,
     doughID: pizza.dough[0].id,
     saucesID: pizza.sauces[0].id,
-    totalPrice: 0,
-    amount: 0,
+    pizzaPrice: 0,
   },
   actions,
   mutations,

@@ -4,7 +4,6 @@ import mutations from "@/store/modules/cart/mutations";
 export default {
   namespaced: true,
   state: {
-    cartList: [],
     isOrderComplete: false,
   },
   actions,

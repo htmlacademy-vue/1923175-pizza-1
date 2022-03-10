@@ -6,14 +6,15 @@ import {
   GET_SAUCES_ID,
   ON_REDUCE,
   ON_INCREASE,
+  ADD_TO_CART,
 } from "@/store/mutation-types";
 
 export default {
   [SET_PIZZA_NAME](state, value) {
     state.pizzaName = value;
   },
-  [GET_TOTAL_PRICE](state, totalPrice) {
-    state.totalPrice = totalPrice;
+  [GET_TOTAL_PRICE](state, pizzaPrice) {
+    state.pizzaPrice = pizzaPrice;
   },
   [GET_SIZE_ID](state, id) {
     state.sizeID = id;
@@ -29,5 +30,8 @@ export default {
   },
   [ON_INCREASE](state, item) {
     ++item.amount;
+  },
+  [ADD_TO_CART](state, pizzas) {
+    state.pizzas.push(pizzas);
   },
 };

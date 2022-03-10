@@ -15,7 +15,7 @@ export default new Vuex.Store({
     Profile,
   },
   state: {
-    totalPrice: 0,
+    pizzaPrice: 0,
   },
   actions,
   mutations,

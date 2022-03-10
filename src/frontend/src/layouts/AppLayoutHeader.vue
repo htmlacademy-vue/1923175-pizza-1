@@ -11,7 +11,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">{{ totalPrice }} ₽</router-link>
+      <router-link to="/cart">{{ pizzaPrice }} ₽</router-link>
     </div>
     <div class="header__user">
       <template v-if="isAuthorized">
@@ -54,7 +54,7 @@ export default {
     },
   },
   computed: {
-    ...mapState("Builder", ["totalPrice"]),
+    ...mapState("Builder", ["pizzaPrice"]),
   },
 };
 </script>
