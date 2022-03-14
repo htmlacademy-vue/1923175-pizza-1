@@ -6,7 +6,7 @@ import {
   GET_SAUCES_ID,
   ON_REDUCE,
   ON_INCREASE,
-  ADD_TO_CART,
+  RESET_STATE,
 } from "@/store/mutation-types";
 
 export default {
@@ -31,7 +31,20 @@ export default {
   [ON_INCREASE](state, item) {
     ++item.amount;
   },
-  [ADD_TO_CART](state, pizzas) {
-    state.pizzas.push(pizzas);
+  [RESET_STATE](state) {
+    const ingredients = state.pizzaData.ingredients.map((item) => ({
+      ...item,
+      amount: 0,
+    }));
+
+    state.dough = state.pizzaData.dough;
+    state.ingredients = ingredients;
+    state.sauces = state.pizzaData.sauces;
+    state.sizes = state.pizzaData.sizes;
+    state.pizzaName = "";
+    state.sizeID = state.pizzaData.sizes[0].id;
+    state.doughID = state.pizzaData.dough[0].id;
+    state.saucesID = state.pizzaData.sauces[0].id;
+    state.pizzaPrice = 0;
   },
 };

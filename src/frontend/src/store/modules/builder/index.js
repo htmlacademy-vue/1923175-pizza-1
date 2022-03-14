@@ -11,7 +11,7 @@ const ingredients = pizza.ingredients.map((item) => ({
 export default {
   namespaced: true,
   state: {
-    pizzas: [],
+    pizzaData: pizza,
     dough: pizza.dough,
     ingredients: ingredients,
     sauces: pizza.sauces,

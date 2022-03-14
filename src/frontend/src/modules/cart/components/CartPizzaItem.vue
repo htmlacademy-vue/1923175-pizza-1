@@ -11,21 +11,31 @@
       <div class="product__text">
         <h2>{{ item.name }}</h2>
         <ul>
-          <li>{{ item.size }} см, на {{ item.dough }} тесте</li>
-          <li>Соус: {{ item.sauces }}</li>
+          <li>{{ getSize }} см, на {{ nameDough }} тесте</li>
+          <li>Соус: {{ getNameSauce }}</li>
           <li>Начинка: {{ listIngredients }}</li>
         </ul>
       </div>
     </div>
 
     <div class="counter cart-list__counter">
-      <button type="button" class="counter__button counter__button--minus">
+      <button
+        type="button"
+        class="counter__button counter__button--minus"
+        @click="onReduce(item)"
+      >
         <span class="visually-hidden">Меньше</span>
       </button>
-      <input type="text" name="counter" class="counter__input" value="1" />
+      <input
+        type="text"
+        name="counter"
+        class="counter__input"
+        :value="item.amount"
+      />
       <button
         type="button"
         class="counter__button counter__button--plus counter__button--orange"
+        @click="onIncrease(item)"
       >
         <span class="visually-hidden">Больше</span>
       </button>
@@ -41,6 +51,7 @@
   </li>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "CartPizzaItem",
   props: {
@@ -50,9 +61,28 @@ export default {
     },
   },
   computed: {
+    ...mapGetters("Cart", ["pizzaPrice"]),
     listIngredients() {
       return this.item.ingredients.map((item) => item.name).join(", ");
     },
+    nameDough() {
+      return this.item.dough.id === 1 ? "тонком" : "толстом";
+    },
+    getNameSauce() {
+      return this.item.sauce.id === 1 ? "Томатный" : "Сливочный";
+    },
+    getSize() {
+      if (this.item.size.multiplier === 1) {
+        return "23";
+      } else if (this.item.size.multiplier === 2) {
+        return "32";
+      } else {
+        return "45";
+      }
+    },
+  },
+  methods: {
+    ...mapActions("Cart", ["onIncrease", "onReduce"]),
   },
 };
 </script>

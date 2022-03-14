@@ -11,7 +11,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">{{ pizzaPrice }} ₽</router-link>
+      <router-link to="/cart">{{ totalPrice }} ₽</router-link>
     </div>
     <div class="header__user">
       <template v-if="isAuthorized">
@@ -44,7 +44,7 @@
   </header>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "AppLayoutHeader",
   props: {
@@ -54,7 +54,7 @@ export default {
     },
   },
   computed: {
-    ...mapState("Builder", ["pizzaPrice"]),
+    ...mapGetters("Cart", ["totalPrice"]),
   },
 };
 </script>

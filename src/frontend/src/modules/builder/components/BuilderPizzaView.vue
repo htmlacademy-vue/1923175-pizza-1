@@ -26,7 +26,7 @@
         type="button"
         class="button"
         :disabled="isDisabled"
-        @click="onAddToCart"
+        @click="addCart"
       >
         Готовьте!
       </button>
@@ -84,9 +84,24 @@ export default {
     },
   },
   methods: {
-    ...mapActions("Builder", ["setPizzaName", "onIncrease", "onAddToCart"]),
+    ...mapActions("Builder", ["setPizzaName", "onIncrease", "resetState"]),
+    ...mapActions("Cart", ["onAddToCart"]),
     getIngredient({ id }) {
       this.onIncrease(this.ingredients.find((item) => item.id === id));
+    },
+    addCart() {
+      this.onAddToCart({
+        pizzaName: this.pizzaName,
+        ingredients: this.ingredients,
+        doughID: this.doughID,
+        saucesID: this.saucesID,
+        sauces: this.sauces,
+        dough: this.dough,
+        sizeID: this.sizeID,
+        sizes: this.sizes,
+        pizzaPrice: this.pizzaPrice,
+      });
+      this.resetState();
     },
   },
 };
