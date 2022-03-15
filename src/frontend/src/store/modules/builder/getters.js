@@ -6,7 +6,7 @@ export default {
   },
   pizzaPrice(state, getters) {
     return (
-      (state.dough[0].price +
+      (state.doughList[0].price +
         state.sauces[0].price +
         getters.ingredientsPrice) *
       state.sizes.find(({ id }) => state.sizeID === id).multiplier

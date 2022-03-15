@@ -16,11 +16,11 @@ export const getSizeId = ({ commit }, id) => {
   commit(GET_SIZE_ID, id);
 };
 
-export const getDoughID = ({ commit }, id) => {
+export const setDoughID = ({ commit }, id) => {
   commit(GET_DOUGH_ID, id);
 };
 
-export const getSaucesId = ({ commit }, id) => {
+export const setSaucesId = ({ commit }, id) => {
   commit(GET_SAUCES_ID, id);
 };
 
@@ -28,10 +28,10 @@ export const resetState = ({ commit }) => {
   commit(RESET_STATE);
 };
 
-export const onReduce = ({ commit }, item) => {
-  commit(ON_REDUCE, item);
+export const onReduce = ({ commit }, id) => {
+  commit(ON_REDUCE, id);
 };
 
-export const onIncrease = ({ commit }, item) => {
-  commit(ON_INCREASE, item);
+export const onIncrease = ({ commit }, id) => {
+  commit(ON_INCREASE, id);
 };

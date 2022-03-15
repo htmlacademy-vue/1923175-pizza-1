@@ -34,7 +34,7 @@ export const onAddToCart = ({ commit }, pizza) => {
     name: pizza.pizzaName,
     dough: {
       id: pizza.doughID,
-      price: pizza.dough[0].price,
+      price: pizza.doughList[0].price,
     },
     size: {
       id: pizza.sizeID,

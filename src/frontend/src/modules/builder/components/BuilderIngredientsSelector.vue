@@ -15,7 +15,7 @@
               value="tomato"
               :item="sauces.id"
               :checked="sauces.id === saucesID"
-              @change="getSaucesId"
+              @change="setSaucesId"
             />
             <span>{{ sauces.name }}</span>
           </label>
@@ -29,7 +29,10 @@
               class="ingredients__item"
             >
               <SelectorItem :ingredient="ingredient" />
-              <ItemCounter :ingredient="ingredient" />
+              <ItemCounter
+                :ingredient-id="ingredient.id"
+                :amount="ingredient.amount"
+              />
             </li>
           </ul>
         </div>
@@ -55,7 +58,7 @@ export default {
     ...mapState(["sauces", "saucesID", "ingredients"]),
   },
   methods: {
-    ...mapActions(["getSaucesId"]),
+    ...mapActions(["setSaucesId"]),
   },
 };
 </script>

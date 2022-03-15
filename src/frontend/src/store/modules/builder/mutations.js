@@ -25,11 +25,21 @@ export default {
   [GET_SAUCES_ID](state, id) {
     state.saucesID = id;
   },
-  [ON_REDUCE](state, item) {
-    --item.amount;
+  [ON_REDUCE](state, id) {
+    const findIngredient = state.ingredients.find(
+      (ingredient) => ingredient.id === id
+    );
+    if (findIngredient) {
+      --findIngredient.amount;
+    }
   },
-  [ON_INCREASE](state, item) {
-    ++item.amount;
+  [ON_INCREASE](state, id) {
+    const findIngredient = state.ingredients.find(
+      (ingredient) => ingredient.id === id
+    );
+    if (findIngredient) {
+      ++findIngredient.amount;
+    }
   },
   [RESET_STATE](state) {
     const ingredients = state.pizzaData.ingredients.map((item) => ({
@@ -37,7 +47,7 @@ export default {
       amount: 0,
     }));
 
-    state.dough = state.pizzaData.dough;
+    state.doughList = state.pizzaData.dough;
     state.ingredients = ingredients;
     state.sauces = state.pizzaData.sauces;
     state.sizes = state.pizzaData.sizes;

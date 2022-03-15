@@ -4,21 +4,16 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isDisabledMinus"
-      @click="onReduce(ingredient)"
+      @click="onReduce(ingredientId)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
-    <input
-      type="text"
-      name="counter"
-      class="counter__input"
-      :value="ingredient.amount"
-    />
+    <input type="text" name="counter" class="counter__input" :value="amount" />
     <button
       type="button"
       class="counter__button counter__button--plus"
       :disabled="isDisabledPlus"
-      @click="onIncrease(ingredient)"
+      @click="onIncrease(ingredientId)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -31,21 +26,22 @@ const { mapActions } = createNamespacedHelpers("Builder");
 
 export default {
   name: "ItemCounter",
-  data: () => ({
-    amount: 0,
-  }),
   props: {
-    ingredient: {
-      type: Object,
+    amount: {
+      type: Number,
+      required: true,
+    },
+    ingredientId: {
+      type: Number,
       required: true,
     },
   },
   computed: {
     isDisabledMinus() {
-      return this.ingredient.amount < 1;
+      return this.amount < 1;
     },
     isDisabledPlus() {
-      return this.ingredient.amount >= MAX_INGREDIENTS;
+      return this.amount >= MAX_INGREDIENTS;
     },
   },
   methods: {

@@ -4,20 +4,20 @@
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
       <div class="sheet__content dough">
         <label
-          v-for="pizza in dough"
-          :key="pizza.id"
+          v-for="dough in doughList"
+          :key="dough.id"
           class="dough__input"
-          :class="getClassDough(pizza)"
+          :class="getClassDough(dough)"
         >
           <RadioButton
             name="dough"
             value="light"
-            :item="pizza.id"
-            :checked="pizza.id === doughID"
-            @change="getDoughID(pizza.id)"
+            :item="dough.id"
+            :checked="dough.id === doughID"
+            @change="setDoughID(dough.id)"
           />
-          <b>{{ pizza.name }}</b>
-          <span>{{ pizza.description }}</span>
+          <b>{{ dough.name }}</b>
+          <span>{{ dough.description }}</span>
         </label>
       </div>
     </div>
@@ -33,10 +33,10 @@ export default {
     RadioButton,
   },
   computed: {
-    ...mapState(["dough", "doughID"]),
+    ...mapState(["doughList", "doughID"]),
   },
   methods: {
-    ...mapActions(["getDoughID"]),
+    ...mapActions(["setDoughID"]),
     getClassDough({ name }) {
       return name === "Тонкое" ? "dough__input--light" : "dough__input--large";
     },

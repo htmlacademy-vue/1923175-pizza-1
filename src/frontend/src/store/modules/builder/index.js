@@ -12,7 +12,7 @@ export default {
   namespaced: true,
   state: {
     pizzaData: pizza,
-    dough: pizza.dough,
+    doughList: pizza.dough,
     ingredients: ingredients,
     sauces: pizza.sauces,
     sizes: pizza.sizes,
