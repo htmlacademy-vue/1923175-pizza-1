@@ -35,3 +35,16 @@ export const onReduce = ({ commit }, id) => {
 export const onIncrease = ({ commit }, id) => {
   commit(ON_INCREASE, id);
 };
+
+export const editOrder = ({ state }, pizza) => {
+  const dough = state.pizzaData.dough.find(
+    (item) => item.id === pizza.dough.id
+  );
+  const size = state.pizzaData.sizes.find((item) => item.id === pizza.size.id);
+  const sauce = state.pizzaData.sauces.find(
+    (item) => item.id === pizza.sauce.id
+  );
+
+  console.log(dough, size, sauce);
+
+};

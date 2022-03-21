@@ -47,7 +47,9 @@
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit">Изменить</button>
+      <button type="button" class="cart-list__edit" @click="editOrder(item)">
+        Изменить
+      </button>
     </div>
   </li>
 </template>
@@ -89,6 +91,7 @@ export default {
   },
   methods: {
     ...mapActions("Cart", ["onIncrease", "onReduce"]),
+    ...mapActions("Builder", ["editOrder"]),
   },
 };
 </script>
