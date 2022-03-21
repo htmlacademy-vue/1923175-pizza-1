@@ -2,6 +2,8 @@ import {
   ADD_TO_CART,
   ON_INCREASE,
   ON_REDUCE,
+  ON_INCREASE_MISC,
+  ON_REDUCE_MICS,
   ORDER_COMPLETED,
 } from "@/store/mutation-types";
 
@@ -55,4 +57,12 @@ export const onReduce = ({ commit }, item) => {
 
 export const onIncrease = ({ commit }, item) => {
   commit(ON_INCREASE, item);
+};
+
+export const onReduceMisc = ({ commit }, item) => {
+  commit(ON_REDUCE_MICS, item);
+};
+
+export const onIncreaseMisc = ({ commit }, item) => {
+  commit(ON_INCREASE_MISC, item);
 };

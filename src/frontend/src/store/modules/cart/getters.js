@@ -1,8 +1,16 @@
 export default {
   totalPrice(state) {
-    return state.cart.reduce(
+    const additionalAmount = state.misc.reduce(
       (value, currentValue) => value + currentValue.price * currentValue.amount,
       0
+    );
+
+    return (
+      state.cart.reduce(
+        (value, currentValue) =>
+          value + currentValue.price * currentValue.amount,
+        0
+      ) + additionalAmount
     );
   },
 };

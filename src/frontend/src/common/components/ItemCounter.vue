@@ -20,9 +20,8 @@
   </div>
 </template>
 <script>
-import { createNamespacedHelpers } from "vuex";
+import { mapActions } from "vuex";
 import { MAX_INGREDIENTS } from "../constants";
-const { mapActions } = createNamespacedHelpers("Builder");
 
 export default {
   name: "ItemCounter",
@@ -45,7 +44,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["onReduce", "onIncrease"]),
+    ...mapActions("Builder", ["onReduce", "onIncrease"]),
   },
 };
 </script>

@@ -35,6 +35,7 @@
       <button
         type="button"
         class="counter__button counter__button--plus counter__button--orange"
+        :disabled="isDisabledIncrease"
         @click="onIncrease(item)"
       >
         <span class="visually-hidden">Больше</span>
@@ -42,7 +43,7 @@
     </div>
 
     <div class="cart-list__price">
-      <b>{{ item.price }} ₽</b>
+      <b>{{ itemComputedPrice }} ₽</b>
     </div>
 
     <div class="cart-list__button">
@@ -51,7 +52,7 @@
   </li>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "CartPizzaItem",
   props: {
@@ -61,7 +62,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("Cart", ["pizzaPrice"]),
+    itemComputedPrice() {
+      return this.item.amount > 0 ? this.item.price * this.item.amount : 1;
+    },
+    isDisabledIncrease() {
+      return this.item.amount > 10;
+    },
     listIngredients() {
       return this.item.ingredients.map((item) => item.name).join(", ");
     },

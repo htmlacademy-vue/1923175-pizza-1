@@ -19,3 +19,14 @@ export default {
   },
 };
 </script>
+<style>
+.app-layout-main {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.content {
+  height: 100%;
+}
+</style>

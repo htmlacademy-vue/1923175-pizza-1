@@ -3,6 +3,8 @@ import {
   ON_INCREASE,
   ON_REDUCE,
   ORDER_COMPLETED,
+  ON_REDUCE_MICS,
+  ON_INCREASE_MISC,
 } from "@/store/mutation-types";
 
 export default {
@@ -12,10 +14,31 @@ export default {
   [ADD_TO_CART](state, pizzas) {
     state.cart.push(pizzas);
   },
-  [ON_REDUCE](state, item) {
-    --item.amount;
+  [ON_REDUCE](state, { id }) {
+    const itemCart = state.cart.find((item) => item.id === id);
+
+    if (itemCart && itemCart.amount > 0) {
+      --itemCart.amount;
+    }
   },
-  [ON_INCREASE](state, item) {
-    ++item.amount;
+  [ON_INCREASE](state, { id }) {
+    const itemCart = state.cart.find((item) => item.id === id);
+
+    if (itemCart) {
+      ++itemCart.amount;
+    }
+  },
+  [ON_REDUCE_MICS](state, { id }) {
+    const itemMics = state.misc.find((item) => item.id === id);
+
+    if (itemMics && itemMics.amount > 0) {
+      --itemMics.amount;
+    }
+  },
+  [ON_INCREASE_MISC](state, { id }) {
+    const itemMics = state.misc.find((item) => item.id === id);
+    if (itemMics) {
+      ++itemMics.amount;
+    }
   },
 };
