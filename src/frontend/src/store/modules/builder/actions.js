@@ -46,5 +46,4 @@ export const editOrder = ({ state }, pizza) => {
   );
 
   console.log(dough, size, sauce);
-
 };
