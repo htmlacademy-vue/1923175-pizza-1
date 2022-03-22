@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout-default">
-    <AppLayoutHeader :cart-total-price="cartTotalPrice" />
+    <AppLayoutHeader />
     <slot />
   </div>
 </template>
@@ -11,11 +11,12 @@ export default {
   components: {
     AppLayoutHeader,
   },
-  props: {
-    cartTotalPrice: {
-      type: Number,
-      default: 0,
-    },
-  },
 };
 </script>
+<style lang="scss" scoped>
+.app-layout-default {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+</style>

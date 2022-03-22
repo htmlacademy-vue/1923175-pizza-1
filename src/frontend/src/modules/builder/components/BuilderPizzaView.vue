@@ -6,10 +6,11 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
-        @input="(e) => $emit('input', e.target.value)"
+        @input="setPizzaName"
+        :value="pizzaName"
       />
     </label>
-    <AppDrop @drop="onDrop">
+    <AppDrop @drop="getIngredient">
       <div class="content__constructor">
         <div class="pizza" :class="getFoundation">
           <div class="pizza__wrapper">
@@ -21,12 +22,12 @@
       </div>
     </AppDrop>
     <div class="content__result">
-      <p>Итого: {{ totalPrice }} ₽</p>
+      <p>Итого: {{ pizzaPrice }} ₽</p>
       <button
         type="button"
         class="button"
         :disabled="isDisabled"
-        @click="$emit('click')"
+        @click="addCart"
       >
         Готовьте!
       </button>
@@ -34,6 +35,7 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters, mapState } from "vuex";
 import AppDrop from "@/common/components/AppDrop";
 
 export default {
@@ -41,36 +43,21 @@ export default {
   components: {
     AppDrop,
   },
-  props: {
-    size: {
-      type: String,
-      default: "",
-    },
-    doughId: {
-      type: [Number, String],
-      default: 1,
-    },
-    saucesId: {
-      type: [Number, String],
-      default: 1,
-    },
-    totalPrice: {
-      type: Number,
-      default: 0,
-    },
-    ingredients: {
-      type: Array,
-      default: () => [],
-    },
-    pizzaName: {
-      type: String,
-      default: "",
-    },
-  },
   computed: {
+    ...mapState("Builder", [
+      "pizzaName",
+      "doughID",
+      "saucesID",
+      "ingredients",
+      "sauces",
+      "doughList",
+      "sizeID",
+      "sizes",
+    ]),
+    ...mapGetters("Builder", ["pizzaPrice"]),
     getFoundation() {
-      return `pizza--foundation--${this.doughId === 2 ? "big" : "small"}-${
-        this.saucesId === 1 ? "tomato" : "creamy"
+      return `pizza--foundation--${this.doughID === 2 ? "big" : "small"}-${
+        this.saucesID === 1 ? "tomato" : "creamy"
       }`;
     },
     getComputedClass() {
@@ -98,8 +85,24 @@ export default {
     },
   },
   methods: {
-    onDrop(ingredient) {
-      this.$emit("on-drop", ingredient);
+    ...mapActions("Builder", ["setPizzaName", "onIncrease", "resetState"]),
+    ...mapActions("Cart", ["onAddToCart"]),
+    getIngredient({ id }) {
+      this.onIncrease(this.ingredients.find((item) => item.id === id));
+    },
+    addCart() {
+      this.onAddToCart({
+        pizzaName: this.pizzaName,
+        ingredients: this.ingredients,
+        doughID: this.doughID,
+        saucesID: this.saucesID,
+        sauces: this.sauces,
+        doughList: this.doughList,
+        sizeID: this.sizeID,
+        sizes: this.sizes,
+        pizzaPrice: this.pizzaPrice,
+      });
+      this.resetState();
     },
   },
 };

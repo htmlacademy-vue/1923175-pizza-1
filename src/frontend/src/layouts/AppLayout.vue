@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout" :cart-total-price="cartTotalPrice">
+  <component :is="layout">
     <slot />
   </component>
 </template>
@@ -9,12 +9,6 @@ const defaultLayout = "AppLayoutDefault";
 
 export default {
   name: "AppLayout",
-  props: {
-    cartTotalPrice: {
-      type: Number,
-      default: 0,
-    },
-  },
   computed: {
     layout() {
       const layout = this.$route.meta.layout || defaultLayout;

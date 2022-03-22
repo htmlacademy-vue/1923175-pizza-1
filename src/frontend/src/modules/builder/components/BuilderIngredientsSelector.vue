@@ -15,7 +15,7 @@
               value="tomato"
               :item="sauces.id"
               :checked="sauces.id === saucesID"
-              @change="getID"
+              @change="setSaucesId"
             />
             <span>{{ sauces.name }}</span>
           </label>
@@ -30,9 +30,8 @@
             >
               <SelectorItem :ingredient="ingredient" />
               <ItemCounter
-                :ingredient="ingredient"
-                @onReduce="$emit('onReduce', $event)"
-                @onIncrease="$emit('onIncrease', $event)"
+                :ingredient-id="ingredient.id"
+                :amount="ingredient.amount"
               />
             </li>
           </ul>
@@ -42,9 +41,11 @@
   </div>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import RadioButton from "@/common/components/RadioButton";
+const { mapActions, mapState } = createNamespacedHelpers("Builder");
 
 export default {
   name: "BuilderIngredientsSelector",
@@ -53,25 +54,11 @@ export default {
     ItemCounter,
     RadioButton,
   },
-  data: () => ({
-    saucesID: 1,
-    amount: 0,
-    ingredientId: 0,
-  }),
-  props: {
-    sauces: {
-      type: Array,
-      default: () => [],
-    },
-    ingredients: {
-      type: Array,
-      default: () => [],
-    },
+  computed: {
+    ...mapState(["sauces", "saucesID", "ingredients"]),
   },
   methods: {
-    getID(id) {
-      this.$emit("change", id);
-    },
+    ...mapActions(["setSaucesId"]),
   },
 };
 </script>

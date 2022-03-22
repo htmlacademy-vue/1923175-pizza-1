@@ -15,7 +15,7 @@ export default [
     path: "/cart",
     name: "Cart",
     component: () => import("../views/Cart"),
-    meta: { layout: "AppLayoutMain" },
+    meta: { layout: "AppLayoutDefault" },
   },
   {
     path: "/orders",
