@@ -7,6 +7,7 @@ import {
   ON_REDUCE,
   ON_INCREASE,
   RESET_STATE,
+  SET_INGREDIENTS,
 } from "@/store/mutation-types";
 
 export default {
@@ -56,5 +57,8 @@ export default {
     state.doughID = state.pizzaData.dough[0].id;
     state.saucesID = state.pizzaData.sauces[0].id;
     state.pizzaPrice = 0;
+  },
+  [SET_INGREDIENTS](state, ingredients) {
+    state.ingredients = ingredients;
   },
 };

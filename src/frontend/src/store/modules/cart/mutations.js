@@ -12,7 +12,15 @@ export default {
     state.isOrderComplete = isOrderComplete;
   },
   [ADD_TO_CART](state, pizzas) {
-    state.cart.push(pizzas);
+    if (state.cart.findIndex((item) => pizzas.name === item.name) > -1) {
+      state.cart.splice(
+        state.cart.findIndex((item) => pizzas.name === item.name),
+        1,
+        pizzas
+      );
+    } else {
+      state.cart.push(pizzas);
+    }
   },
   [ON_REDUCE](state, { id }) {
     const itemCart = state.cart.find((item) => item.id === id);

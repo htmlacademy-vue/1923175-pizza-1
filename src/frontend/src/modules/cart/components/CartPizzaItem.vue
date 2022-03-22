@@ -47,7 +47,7 @@
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit" @click="editOrder(item)">
+      <button type="button" class="cart-list__edit" @click="onEditOrder(item)">
         Изменить
       </button>
     </div>
@@ -92,6 +92,10 @@ export default {
   methods: {
     ...mapActions("Cart", ["onIncrease", "onReduce"]),
     ...mapActions("Builder", ["editOrder"]),
+    onEditOrder(item) {
+      this.editOrder(item);
+      this.$router.push("/");
+    },
   },
 };
 </script>

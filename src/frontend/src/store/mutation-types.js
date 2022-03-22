@@ -10,3 +10,4 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const RESET_STATE = "RESET_STATE";
 export const ON_INCREASE_MISC = "ON_INCREASE_MISC";
 export const ON_REDUCE_MICS = "ON_REDUCE_MICS";
+export const SET_INGREDIENTS = "SET_INGREDIENTS";

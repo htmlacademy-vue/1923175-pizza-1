@@ -7,6 +7,7 @@
         name="pizza_name"
         placeholder="Введите название пиццы"
         @input="setPizzaName"
+        :value="pizzaName"
       />
     </label>
     <AppDrop @drop="getIngredient">
