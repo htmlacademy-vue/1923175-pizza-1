@@ -9,6 +9,12 @@ import {
   SET_INGREDIENTS,
 } from "@/store/mutation-types";
 
+export const query = async ({ commit }, config) => {
+  const data = this.$api.pizzas.query(config);
+  console.log(data);
+  commit(SET_PIZZA_NAME);
+};
+
 export const setPizzaName = ({ commit }, { target }) => {
   commit(SET_PIZZA_NAME, target.value);
 };

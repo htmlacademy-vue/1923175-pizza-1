@@ -1,3 +1,4 @@
+export const SET_ENTITY = "SET_ENTITY";
 export const SET_PIZZA_NAME = "SET_PIZZA_NAME";
 export const GET_TOTAL_PRICE = "GET_TOTAL_PRICE";
 export const GET_SIZE_ID = "GET_SIZE_ID";

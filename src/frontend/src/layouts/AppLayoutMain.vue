@@ -2,12 +2,13 @@
   <div class="app-layout-main">
     <AppLayoutHeader />
     <div class="content">
-      <AppLayoutMainSidebar />
+      <AppLayoutMainSidebar v-if="isAuthenticated" />
       <slot />
     </div>
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
 import AppLayoutMainSidebar from "@/layouts/AppLayoutMainSidebar";
 
@@ -16,6 +17,12 @@ export default {
   components: {
     AppLayoutMainSidebar,
     AppLayoutHeader,
+  },
+  computed: {
+    ...mapState(["Auth"]),
+    isAuthenticated() {
+      return this.Auth.isAuthenticated;
+    },
   },
 };
 </script>

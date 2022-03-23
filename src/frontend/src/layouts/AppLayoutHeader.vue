@@ -17,17 +17,11 @@
       <template v-if="isAuthorized">
         <router-link to="/profile" class="header__login">
           <picture>
-            <source
-              type="image/webp"
-              srcset="
-                @/assets/img/users/user5.webp    1x,
-                @/assets/img/users/user5@2x.webp 2x
-              "
-            />
+            <source type="image/webp" :srcset="user.avatar" />
             <img
-              src="@/assets/img/users/user5.jpg"
-              srcset="@/assets/img/users/user5@2x.jpg"
-              alt="Василий Ложкин"
+              :src="user.avatar"
+              :srcset="user.avatar"
+              :alt="user.name"
               width="32"
               height="32"
             />
@@ -44,7 +38,7 @@
   </header>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "AppLayoutHeader",
   props: {
@@ -54,7 +48,12 @@ export default {
     },
   },
   computed: {
+    ...mapState(["Auth"]),
     ...mapGetters("Cart", ["totalPrice"]),
+    ...mapGetters("Auth", ["getUserAttribute"]),
+    user() {
+      return this.Auth.user || {};
+    },
   },
 };
 </script>

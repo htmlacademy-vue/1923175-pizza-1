@@ -1,3 +1,5 @@
+import { isLoggedIn } from "@/middlewares";
+
 export default [
   {
     path: "/",
@@ -9,7 +11,10 @@ export default [
     path: "/login",
     name: "Login",
     component: () => import("../views/Login"),
-    meta: { layout: "AppLayoutMain" },
+    meta: {
+      layout: "AppLayoutDefault",
+      middlewares: [isLoggedIn],
+    },
   },
   {
     path: "/cart",
