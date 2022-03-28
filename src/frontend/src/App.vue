@@ -4,7 +4,7 @@
   </AppLayout>
 </template>
 <script>
-import { setAuth } from "@/common/helpers";
+// import { setAuth } from "@/common/helpers";
 import AppLayout from "@/layouts/AppLayout";
 export default {
   name: "App",
@@ -16,9 +16,11 @@ export default {
       console.log(error);
     };
 
-    if (this.$jwt.getToken()) {
-      setAuth(this.$store);
-    }
+    // if (this.$jwt.getToken()) {
+    //   setAuth(this.$store);
+    // }
+
+    this.$store.dispatch("init");
   },
 };
 </script>

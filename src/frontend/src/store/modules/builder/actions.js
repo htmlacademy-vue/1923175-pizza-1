@@ -7,13 +7,18 @@ import {
   ON_INCREASE,
   RESET_STATE,
   SET_INGREDIENTS,
+  GET_SAUCES_DATA,
+  GET_SIZES_DATA,
+  GET_DOUGH_DATA,
+  GET_INGREDIENTS_DATA,
 } from "@/store/mutation-types";
 
-export const query = async ({ commit }, config) => {
-  const data = this.$api.pizzas.query(config);
-  console.log(data);
-  commit(SET_PIZZA_NAME);
-};
+export async function query({ commit }) {
+  commit(GET_SAUCES_DATA, await this.$api.sauces.query());
+  commit(GET_SIZES_DATA, await this.$api.sizes.query());
+  commit(GET_DOUGH_DATA, await this.$api.dough.query());
+  commit(GET_INGREDIENTS_DATA, await this.$api.ingredients.query());
+}
 
 export const setPizzaName = ({ commit }, { target }) => {
   commit(SET_PIZZA_NAME, target.value);

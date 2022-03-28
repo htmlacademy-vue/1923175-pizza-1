@@ -1,3 +1,1 @@
-export default {
-  getUserAttribute() {},
-};
+export default {};

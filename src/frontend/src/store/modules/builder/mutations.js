@@ -8,9 +8,28 @@ import {
   ON_INCREASE,
   RESET_STATE,
   SET_INGREDIENTS,
+  GET_SAUCES_DATA,
+  GET_SIZES_DATA,
+  GET_DOUGH_DATA,
+  GET_INGREDIENTS_DATA,
 } from "@/store/mutation-types";
 
 export default {
+  [GET_SAUCES_DATA](state, data) {
+    state.sauces = data;
+  },
+  [GET_SIZES_DATA](state, data) {
+    state.sizes = data;
+  },
+  [GET_DOUGH_DATA](state, data) {
+    state.doughList = data;
+  },
+  [GET_INGREDIENTS_DATA](state, data) {
+    state.ingredients = data.map((item) => ({
+      ...item,
+      amount: 0,
+    }));
+  },
   [SET_PIZZA_NAME](state, value) {
     state.pizzaName = value;
   },

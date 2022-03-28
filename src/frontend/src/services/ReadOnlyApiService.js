@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/plugins/axios";
 import BaseApiService from "@/services/BaseApiService";
 
 export default class ReadOnlyApiService extends BaseApiService {

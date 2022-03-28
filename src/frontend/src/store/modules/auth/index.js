@@ -1,4 +1,4 @@
-import * as getters from "@/store/modules/auth/getters";
+import getters from "@/store/modules/auth/getters";
 
 export default {
   namespaced: true,

@@ -38,7 +38,7 @@
   </header>
 </template>
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "AppLayoutHeader",
   props: {
@@ -48,11 +48,9 @@ export default {
     },
   },
   computed: {
-    ...mapState(["Auth"]),
     ...mapGetters("Cart", ["totalPrice"]),
-    ...mapGetters("Auth", ["getUserAttribute"]),
     user() {
-      return this.Auth.user || {};
+      return {};
     },
   },
 };
