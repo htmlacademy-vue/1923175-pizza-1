@@ -16,10 +16,8 @@ export default new Vuex.Store({
     Profile,
   },
   state: {
+    users: [],
     pizzaPrice: 0,
-    Auth: {
-      isAuthenticated: false,
-    },
   },
   plugins: [VuexPlugins],
   actions,

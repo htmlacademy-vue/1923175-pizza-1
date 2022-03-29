@@ -7,6 +7,7 @@ import {
   ON_INCREASE,
   RESET_STATE,
   SET_INGREDIENTS,
+  GET_PIZZA_DATA,
   GET_SAUCES_DATA,
   GET_SIZES_DATA,
   GET_DOUGH_DATA,
@@ -14,10 +15,19 @@ import {
 } from "@/store/mutation-types";
 
 export async function query({ commit }) {
-  commit(GET_SAUCES_DATA, await this.$api.sauces.query());
-  commit(GET_SIZES_DATA, await this.$api.sizes.query());
-  commit(GET_DOUGH_DATA, await this.$api.dough.query());
-  commit(GET_INGREDIENTS_DATA, await this.$api.ingredients.query());
+  const sauces = await this.$api.sauces.query();
+  const sizes = await this.$api.sizes.query();
+  const dough = await this.$api.dough.query();
+  const ingredients = await this.$api.ingredients.query();
+
+  commit(GET_SAUCES_DATA, sauces);
+  commit(GET_SIZES_DATA, sizes);
+  commit(GET_DOUGH_DATA, dough);
+  commit(GET_INGREDIENTS_DATA, ingredients);
+  commit(GET_PIZZA_DATA, [sauces, sizes, dough, ingredients]);
+  commit(GET_SIZE_ID, sizes[0].id);
+  commit(GET_DOUGH_ID, dough[0].id);
+  commit(GET_SAUCES_ID, sauces[0].id);
 }
 
 export const setPizzaName = ({ commit }, { target }) => {

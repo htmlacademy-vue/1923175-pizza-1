@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/plugins/axios";
 
 export default class BaseApiService {
   constructor(notifier) {

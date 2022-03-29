@@ -7,8 +7,8 @@ import { middlewarePipeline } from "@/middlewares";
 Vue.use(Router);
 
 const router = new Router({
-  mode: "history",
   base: process.env.BASE_URL,
+  mode: "history",
   routes,
 });
 
@@ -18,6 +18,7 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
+  // Запускаем обход по цепочке проверок
   const context = { to, from, next, store };
   const firstMiddlewareIndex = 0;
   const nextMiddlewareIndex = 1;

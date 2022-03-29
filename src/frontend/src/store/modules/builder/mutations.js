@@ -12,6 +12,7 @@ import {
   GET_SIZES_DATA,
   GET_DOUGH_DATA,
   GET_INGREDIENTS_DATA,
+  GET_PIZZA_DATA,
 } from "@/store/mutation-types";
 
 export default {
@@ -79,5 +80,8 @@ export default {
   },
   [SET_INGREDIENTS](state, ingredients) {
     state.ingredients = ingredients;
+  },
+  [GET_PIZZA_DATA](state, data) {
+    state.pizzaData = data;
   },
 };
