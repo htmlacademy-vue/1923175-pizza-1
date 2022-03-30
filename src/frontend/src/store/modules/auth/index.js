@@ -3,7 +3,9 @@ import getters from "@/store/modules/auth/getters";
 
 export default {
   namespaced: true,
-  state: {},
+  state: {
+    user: [],
+  },
   actions,
   getters,
 };

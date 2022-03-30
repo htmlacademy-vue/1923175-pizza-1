@@ -5,9 +5,13 @@ import {
   ORDER_COMPLETED,
   ON_REDUCE_MICS,
   ON_INCREASE_MISC,
+  GET_MICS_LIST,
 } from "@/store/mutation-types";
 
 export default {
+  [GET_MICS_LIST](state, misc) {
+    state.misc = misc;
+  },
   [ORDER_COMPLETED](state, isOrderComplete) {
     state.isOrderComplete = isOrderComplete;
   },

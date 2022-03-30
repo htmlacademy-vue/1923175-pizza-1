@@ -49,9 +49,6 @@ export default {
   },
   computed: {
     ...mapGetters("Cart", ["totalPrice"]),
-    user() {
-      return {};
-    },
   },
 };
 </script>

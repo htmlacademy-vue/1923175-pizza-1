@@ -99,18 +99,17 @@ export default {
     CartPizzaItem,
     CartOrderComplete,
   },
+  created() {
+    if (this.cart.length > 0) {
+      this.query();
+    }
+  },
   computed: {
-    ...mapState("Cart", [
-      "isOrderComplete",
-      "cart",
-      "misc",
-      "additionalImages",
-    ]),
+    ...mapState("Cart", ["isOrderComplete", "cart", "misc"]),
     ...mapGetters("Cart", ["totalPrice"]),
   },
-
   methods: {
-    ...mapActions("Cart", ["onSubmit"]),
+    ...mapActions("Cart", ["onSubmit", "query"]),
   },
 };
 </script>

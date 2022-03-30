@@ -17,3 +17,4 @@ export const GET_SIZES_DATA = "GET_SIZES_DATA";
 export const GET_DOUGH_DATA = "GET_DOUGH_DATA";
 export const GET_INGREDIENTS_DATA = "GET_INGREDIENTS_DATA";
 export const GET_PIZZA_DATA = "GET_PIZZA_DATA";
+export const GET_MICS_LIST = "GET_MICS_LIST";

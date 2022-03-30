@@ -2,6 +2,7 @@ import { SET_ENTITY } from "@/store/mutation-types";
 
 export const init = async ({ dispatch }) => {
   dispatch("Builder/query");
+  dispatch("fetchUsers");
 };
 
 export async function fetchUsers({ commit }) {
