@@ -64,19 +64,16 @@ export default {
     }
   },
   [RESET_STATE](state) {
-    const ingredients = state.pizzaData.ingredients.map((item) => ({
+    const ingredients = state.ingredients.map((item) => ({
       ...item,
       amount: 0,
     }));
 
-    state.doughList = state.pizzaData.dough;
     state.ingredients = ingredients;
-    state.sauces = state.pizzaData.sauces;
-    state.sizes = state.pizzaData.sizes;
     state.pizzaName = "";
-    state.sizeID = state.pizzaData.sizes[0].id;
-    state.doughID = state.pizzaData.dough[0].id;
-    state.saucesID = state.pizzaData.sauces[0].id;
+    state.sizeID = state.sizes[0].id;
+    state.doughID = state.doughList[0].id;
+    state.saucesID = state.sauces[0].id;
     state.pizzaPrice = 0;
   },
   [SET_INGREDIENTS](state, ingredients) {
