@@ -58,6 +58,7 @@ export default {
     const findIngredient = state.ingredients.find(
       (ingredient) => ingredient.id === id
     );
+
     if (findIngredient) {
       ++findIngredient.amount;
     }

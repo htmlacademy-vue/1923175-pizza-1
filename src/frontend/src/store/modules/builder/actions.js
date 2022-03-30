@@ -50,11 +50,11 @@ export const resetState = ({ commit }) => {
   commit(RESET_STATE);
 };
 
-export const onReduce = ({ commit }, id) => {
+export const onReduce = ({ commit }, { id }) => {
   commit(ON_REDUCE, id);
 };
 
-export const onIncrease = ({ commit }, id) => {
+export const onIncrease = ({ commit }, { id }) => {
   commit(ON_INCREASE, id);
 };
 
