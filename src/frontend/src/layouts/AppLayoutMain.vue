@@ -8,6 +8,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
 import AppLayoutMainSidebar from "@/layouts/AppLayoutMainSidebar";
 
@@ -18,6 +19,7 @@ export default {
     AppLayoutHeader,
   },
   computed: {
+    ...mapState(["Auth"]),
     isAuthenticated() {
       return this.Auth.isAuthenticated;
     },

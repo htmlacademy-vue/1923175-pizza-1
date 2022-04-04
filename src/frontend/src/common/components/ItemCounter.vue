@@ -4,7 +4,7 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isDisabledMinus"
-      @click="onReduce(ingredientId)"
+      @click="onReduce(ingredient)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -13,7 +13,7 @@
       type="button"
       class="counter__button counter__button--plus"
       :disabled="isDisabledPlus"
-      @click="onIncrease(ingredientId)"
+      @click="onIncrease(ingredient)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -30,8 +30,8 @@ export default {
       type: Number,
       required: true,
     },
-    ingredientId: {
-      type: Number,
+    ingredient: {
+      type: Object,
       required: true,
     },
   },
