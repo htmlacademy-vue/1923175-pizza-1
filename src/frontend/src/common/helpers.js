@@ -1,22 +1,19 @@
-import RESOURCES from "@/common/enums/resources";
-import { AuthApiService, ReadOnlyApiService } from "@/services/api.service";
+import resources from "@/common/enums/resources";
+import {
+  AuthApiService,
+  ReadOnlyApiService,
+  CrudApiService,
+} from "@/services/api.service";
 
-export const createResources = (notifier) => {
+export const createResources = () => {
   return {
-    [RESOURCES.USERS]: new ReadOnlyApiService(RESOURCES.USERS, notifier),
-    [RESOURCES.AUTH]: new AuthApiService(notifier),
-    [RESOURCES.SIZES]: new ReadOnlyApiService(RESOURCES.SIZES, notifier),
-    [RESOURCES.SAUCES]: new ReadOnlyApiService(RESOURCES.SAUCES, notifier),
-    [RESOURCES.DOUGH]: new ReadOnlyApiService(RESOURCES.DOUGH, notifier),
-    [RESOURCES.INGREDIENTS]: new ReadOnlyApiService(
-      RESOURCES.INGREDIENTS,
-      notifier
-    ),
-    [RESOURCES.MICS]: new ReadOnlyApiService(RESOURCES.MICS, notifier),
+    [resources.AUTH]: new AuthApiService(),
+    [resources.ADDRESSES]: new CrudApiService(resources.ADDRESSES),
+    [resources.DOUGH]: new ReadOnlyApiService(resources.DOUGH),
+    [resources.INGREDIENTS]: new ReadOnlyApiService(resources.INGREDIENTS),
+    [resources.MISC]: new ReadOnlyApiService(resources.MISC),
+    [resources.ORDERS]: new CrudApiService(resources.ORDERS),
+    [resources.SAUCES]: new ReadOnlyApiService(resources.SAUCES),
+    [resources.SIZES]: new ReadOnlyApiService(resources.SIZES),
   };
-};
-
-export const setAuth = (store) => {
-  store.$api.auth.setAuthHeader();
-  store.dispatch("Auth/getMe");
 };

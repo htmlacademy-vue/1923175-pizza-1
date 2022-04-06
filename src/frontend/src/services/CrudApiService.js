@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/plugins/axios";
 import ReadOnlyApiService from "@/services/ReadOnlyApiService";
 
 export default class CrudApiService extends ReadOnlyApiService {
@@ -6,6 +6,11 @@ export default class CrudApiService extends ReadOnlyApiService {
   constructor(resource, notifier) {
     super(resource, notifier);
     this.#resource = resource;
+  }
+
+  async query(config = {}) {
+    const { data } = await axios.get(this.#resource, config);
+    return data;
   }
 
   async post(entify) {

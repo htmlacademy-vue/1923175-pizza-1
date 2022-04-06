@@ -14,7 +14,7 @@
       <router-link to="/cart">{{ totalPrice }} ₽</router-link>
     </div>
     <div class="header__user">
-      <template v-if="isAuthorized">
+      <template v-if="isAuthenticated">
         <router-link to="/profile" class="header__login">
           <picture>
             <source type="image/webp" :srcset="user.avatar" />
@@ -26,7 +26,7 @@
               height="32"
             />
           </picture>
-          <span>Василий Ложкин</span>
+          <span>{{ user.name }}</span>
         </router-link>
       </template>
       <template v-else>
@@ -38,7 +38,7 @@
   </header>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "AppLayoutHeader",
   props: {
@@ -49,6 +49,14 @@ export default {
   },
   computed: {
     ...mapGetters("Cart", ["totalPrice"]),
+    ...mapState("Auth", ["isAuthenticated", "user"]),
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("Auth/logout");
+      this.$store.commit("Cart/setPhone", "");
+      await this.$router.push("/");
+    },
   },
 };
 </script>

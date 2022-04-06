@@ -1,14 +1,10 @@
 import axios from "@/plugins/axios";
-import JwsService from "@/services/jwt.service";
-import BaseApiService from "@/services/BaseApiService";
+import JwtService from "@/services/jwt.service";
 
-export default class AuthApiService extends BaseApiService {
-  constructor(notifier) {
-    super(notifier);
-  }
-
+export default class AuthApiService {
+  constructor() {}
   setAuthHeader() {
-    const token = JwsService.getToken();
+    const token = JwtService.getToken();
     axios.defaults.headers.common["Authorization"] = token
       ? `Bearer ${token}`
       : "";

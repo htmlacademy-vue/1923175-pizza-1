@@ -1,5 +1,13 @@
 import auth from "@/middlewares/auth";
-import isLoggedIn from "@/middlewares/isLoggedIn";
 import middlewarePipeline from "@/middlewares/middlewarePipeline";
+import nonAuthenticatedOnly from "@/middlewares/nonAuthenticatedOnly";
+import authenticatedOnly from "@/middlewares/authenticatedOnly";
+import profile from "@/middlewares/profile";
 
-export { auth, isLoggedIn, middlewarePipeline };
+export {
+  auth,
+  nonAuthenticatedOnly,
+  authenticatedOnly,
+  middlewarePipeline,
+  profile,
+};

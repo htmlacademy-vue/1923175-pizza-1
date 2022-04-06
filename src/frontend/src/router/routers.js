@@ -1,11 +1,19 @@
-import { isLoggedIn } from "@/middlewares";
+import {
+  auth,
+  nonAuthenticatedOnly,
+  authenticatedOnly,
+  profile,
+} from "@/middlewares";
 
 export default [
   {
     path: "/",
     name: "IndexHome",
     component: () => import("../views/Index"),
-    meta: { layout: "AppLayoutDefault" },
+    meta: {
+      layout: "AppLayoutDefault",
+      middlewares: [auth],
+    },
   },
   {
     path: "/login",
@@ -13,25 +21,34 @@ export default [
     component: () => import("../views/Login"),
     meta: {
       layout: "AppLayoutDefault",
-      middlewares: [isLoggedIn],
+      middlewares: [auth, nonAuthenticatedOnly],
     },
   },
   {
     path: "/cart",
     name: "Cart",
     component: () => import("../views/Cart"),
-    meta: { layout: "AppLayoutDefault" },
+    meta: {
+      layout: "AppLayoutDefault",
+      middlewares: [auth],
+    },
   },
   {
     path: "/orders",
     name: "Orders",
     component: () => import("../views/Orders"),
-    meta: { layout: "AppLayoutMain" },
+    meta: {
+      layout: "AppLayoutMain",
+      middlewares: [auth, authenticatedOnly],
+    },
   },
   {
     path: "/profile",
     name: "Profile",
     component: () => import("../views/Profile"),
-    meta: { layout: "AppLayoutMain" },
+    meta: {
+      layout: "AppLayoutMain",
+      middlewares: [auth, authenticatedOnly, profile],
+    },
   },
 ];
