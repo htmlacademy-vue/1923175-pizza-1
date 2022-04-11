@@ -57,7 +57,6 @@
 import { mapGetters } from "vuex";
 export default {
   name: "CartAddressForm",
-  components: {},
   computed: {
     ...mapGetters("Cart", ["addresses"]),
     phone: {

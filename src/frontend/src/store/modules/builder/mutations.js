@@ -13,6 +13,7 @@ import {
   GET_DOUGH_DATA,
   GET_INGREDIENTS_DATA,
   GET_PIZZA_DATA,
+  SET_STATE,
 } from "@/store/mutation-types";
 
 export default {
@@ -81,5 +82,15 @@ export default {
   },
   [GET_PIZZA_DATA](state, data) {
     state.pizzaData = data;
+  },
+  [SET_STATE](state, payload) {
+    state.pizzaName = payload.name;
+    state.pizzaId = payload.id;
+    state.doughId = payload.dough?.id;
+    state.sizeID = payload.size?.id;
+    state.saucesID = payload.sauce?.id;
+    payload.ingredients.forEach((i) => {
+      state.ingredients[i.id].amount = i.amount;
+    });
   },
 };

@@ -19,3 +19,4 @@ export const GET_INGREDIENTS_DATA = "GET_INGREDIENTS_DATA";
 export const GET_PIZZA_DATA = "GET_PIZZA_DATA";
 export const GET_MICS_LIST = "GET_MICS_LIST";
 export const SET_ADDRESS = "SET_ADDRESS";
+export const SET_STATE = "SET_STATE";
