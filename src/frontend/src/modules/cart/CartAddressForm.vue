@@ -64,7 +64,7 @@ export default {
         return this.$store.state.Cart.phone;
       },
       set(value) {
-        this.$store.commit("Cart/setPhone", value);
+        this.$store.commit("Cart/SET_PHONE", value);
       },
     },
     street: {
@@ -72,7 +72,7 @@ export default {
         return this.$store.state.Cart.newAddress.street;
       },
       set(value) {
-        this.$store.commit("Cart/newAddressSetStreet", value);
+        this.$store.commit("Cart/NEW_ADDRESS_SET_STREET", value);
       },
     },
     building: {
@@ -80,7 +80,7 @@ export default {
         return this.$store.state.Cart.newAddress.building;
       },
       set(value) {
-        this.$store.commit("Cart/newAddressSetBuilding", value);
+        this.$store.commit("Cart/NEW_ADDRESS_SET_BUILDING", value);
       },
     },
     flat: {
@@ -88,7 +88,7 @@ export default {
         return this.$store.state.Cart.newAddress.flat;
       },
       set(value) {
-        this.$store.commit("Cart/newAddressSetFlat", value);
+        this.$store.commit("Cart/NEW_ADDRESS_SET_FLAT", value);
       },
     },
     deliveryMethod: {
@@ -96,7 +96,7 @@ export default {
         return this.$store.state.Cart.deliveryMethod;
       },
       set(value) {
-        this.$store.commit("Cart/setDeliveryMethod", value);
+        this.$store.commit("Cart/SET_DELIVERY_METHOD", value);
       },
     },
   },

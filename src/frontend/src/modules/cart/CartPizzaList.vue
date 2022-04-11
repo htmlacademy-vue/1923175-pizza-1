@@ -25,7 +25,9 @@
               <span name="sauce">Соус: {{ getSauces(item.sauce.id) }}</span>
             </li>
             <li>
-              <span name="ingredients">Начинка: {{ getIngredients(item.ingredients) }}</span>
+              <span name="ingredients">
+                Начинка: {{ getIngredients(item.ingredients) }}
+              </span>
             </li>
           </ul>
         </div>

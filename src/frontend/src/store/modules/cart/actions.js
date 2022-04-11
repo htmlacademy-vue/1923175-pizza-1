@@ -7,7 +7,7 @@ import {
   ORDER_COMPLETED,
   GET_MICS_LIST,
 } from "@/store/mutation-types";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import colaImg from "@/assets/img/cola.svg";
 import sauceImg from "@/assets/img/sauce.svg";
 import potatoImg from "@/assets/img/potato.svg";
