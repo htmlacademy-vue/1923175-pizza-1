@@ -1,8 +1,8 @@
 export default {
   methods: {
-    async $logout() {
+    async logout() {
       await this.$store.dispatch("Auth/logout");
-      this.$notifier.success("Вы успешно вошли");
+      this.$notifier.success("Вы успешно вышли");
       await this.$router.push("/");
     },
   },

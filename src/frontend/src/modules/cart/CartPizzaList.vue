@@ -70,13 +70,13 @@ export default {
   methods: {
     ...mapActions("Cart", ["onIncrease", "onReduce"]),
     getDough(id) {
-      return this.doughList.filter((item) => item.id === id)[0]?.name;
+      return this.doughList.find((item) => item.id === id).name;
     },
     getSize(id) {
-      return this.sizes.filter((item) => item.id === id)[0]?.name;
+      return this.sizes.find((item) => item.id === id).name;
     },
     getSauces(id) {
-      return this.sauces.filter((item) => item.id === id)[0]?.name;
+      return this.sauces.find((item) => item.id === id).name;
     },
     getIngredients(ingredients) {
       return ingredients.map(({ name }) => name).join(",");

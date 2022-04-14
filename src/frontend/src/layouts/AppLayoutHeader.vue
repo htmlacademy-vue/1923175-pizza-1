@@ -39,8 +39,10 @@
 </template>
 <script>
 import { mapGetters, mapState } from "vuex";
+import logout from "@/common/mixins/logout";
 export default {
   name: "AppLayoutHeader",
+  mixins: [logout],
   props: {
     isAuthorized: {
       type: Boolean,
@@ -50,13 +52,6 @@ export default {
   computed: {
     ...mapGetters("Cart", ["totalPrice"]),
     ...mapState("Auth", ["isAuthenticated", "user"]),
-  },
-  methods: {
-    async logout() {
-      await this.$store.dispatch("Auth/logout");
-      this.$store.commit("Cart/setPhone", "");
-      await this.$router.push("/");
-    },
   },
 };
 </script>
