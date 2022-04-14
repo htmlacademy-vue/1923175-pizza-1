@@ -1,140 +1,110 @@
 <template>
-  <main class="layout">
-    <Sidebar />
-    <div class="layout__content">
-      <div class="layout__title">
-        <h1 class="title title--big">Мои данные</h1>
-      </div>
-
-      <div class="user">
-        <picture>
-          <source
-            type="image/webp"
-            srcset="
-              @/assets/img/users/user5@2x.webp 1x,
-              @/assets/img/users/user5@4x.webp 2x
-            "
-          />
-          <img
-            src="@/assets/img/users/user5@2x.jpg"
-            srcset="@/assets/img/users/user5@4x.jpg"
-            alt="Василий Ложкин"
-            width="72"
-            height="72"
-          />
-        </picture>
-        <div class="user__name">
-          <span>Василий Ложкин</span>
-        </div>
-        <p class="user__phone">
-          Контактный телефон: <span>+7 999-999-99-99</span>
-        </p>
-      </div>
-
-      <div class="layout__address">
-        <div class="sheet address-form">
-          <div class="address-form__header">
-            <b>Адрес №1. Тест</b>
-            <div class="address-form__edit">
-              <button type="button" class="icon">
-                <span class="visually-hidden">Изменить адрес</span>
-              </button>
-            </div>
-          </div>
-          <p>Невский пр., д. 22, кв. 46</p>
-          <small>Позвоните, пожалуйста, от проходной</small>
-        </div>
-      </div>
-
-      <div class="layout__address">
-        <form
-          action="test.html"
-          method="post"
-          class="address-form address-form--opened sheet"
-        >
-          <div class="address-form__header">
-            <b>Адрес №1</b>
-          </div>
-
-          <div class="address-form__wrapper">
-            <div class="address-form__input">
-              <label class="input">
-                <span>Название адреса*</span>
-                <input
-                  type="text"
-                  name="addr-name"
-                  placeholder="Введите название адреса"
-                  required
-                />
-              </label>
-            </div>
-            <div class="address-form__input address-form__input--size--normal">
-              <label class="input">
-                <span>Улица*</span>
-                <input
-                  type="text"
-                  name="addr-street"
-                  placeholder="Введите название улицы"
-                  required
-                />
-              </label>
-            </div>
-            <div class="address-form__input address-form__input--size--small">
-              <label class="input">
-                <span>Дом*</span>
-                <input
-                  type="text"
-                  name="addr-house"
-                  placeholder="Введите номер дома"
-                  required
-                />
-              </label>
-            </div>
-            <div class="address-form__input address-form__input--size--small">
-              <label class="input">
-                <span>Квартира</span>
-                <input
-                  type="text"
-                  name="addr-apartment"
-                  placeholder="Введите № квартиры"
-                />
-              </label>
-            </div>
-            <div class="address-form__input">
-              <label class="input">
-                <span>Комментарий</span>
-                <input
-                  type="text"
-                  name="addr-comment"
-                  placeholder="Введите комментарий"
-                />
-              </label>
-            </div>
-          </div>
-
-          <div class="address-form__buttons">
-            <button type="button" class="button button--transparent">
-              Удалить
-            </button>
-            <button type="submit" class="button">Сохранить</button>
-          </div>
-        </form>
-      </div>
-
-      <div class="layout__button">
-        <button type="button" class="button button--border">
-          Добавить новый адрес
-        </button>
-      </div>
+  <div class="layout__content">
+    <ProfileUserInfo />
+    <div v-for="a in addresses" :key="a.id">
+      <ProfileAddress
+        @edit="openAddressForm(a, true)"
+        :building="a.building"
+        :comment="a.comment ? a.comment : ''"
+        :flat="a.flat ? a.flat : ''"
+        :id="a.id"
+        :name="a.name"
+        :street="a.street"
+      />
     </div>
-  </main>
+    <div class="layout__button">
+      <button
+        @click="openAddressForm({}, false)"
+        type="button"
+        class="button button--border"
+      >
+        Добавить новый адрес
+      </button>
+    </div>
+    <div v-if="showAddressForm">
+      <ProfileAddressForm
+        @addAddress="addAddress"
+        @updateAddress="updateAddress"
+        @deleteAddress="deleteAddress"
+        :address="addressToEdit"
+      />
+    </div>
+  </div>
 </template>
+
 <script>
-import Sidebar from "@/common/components/Sidebar";
+import { mapState } from "vuex";
+import ProfileUserInfo from "@/modules/profile/ProfileUserInfo";
+import ProfileAddress from "@/modules/profile/ProfileAddress";
+import ProfileAddressForm from "@/modules/profile/ProfileAddressForm";
 export default {
   name: "Profile",
   components: {
-    Sidebar,
+    ProfileUserInfo,
+    ProfileAddress,
+    ProfileAddressForm,
+  },
+  data() {
+    return {
+      showAddressForm: false,
+      addressToEdit: {
+        id: -1,
+        name: "",
+        street: "",
+        building: "",
+        flat: "",
+        comment: "",
+      },
+    };
+  },
+  methods: {
+    resetAddressToEdit() {
+      this.addressToEdit = {
+        id: -1,
+        name: "",
+        street: "",
+        building: "",
+        flat: "",
+        comment: "",
+      };
+    },
+    openAddressForm(address, edit) {
+      if (edit) {
+        this.addressToEdit.id = address.id;
+        this.addressToEdit.name = address.name;
+        this.addressToEdit.street = address.street;
+        this.addressToEdit.building = address.building;
+        this.addressToEdit.flat = address.flat;
+        this.addressToEdit.comment = address.comment;
+      }
+      this.showAddressForm = true;
+    },
+    async addAddress(address) {
+      let payload = Object.assign({}, address);
+      payload.userId = this.user.id;
+      delete payload.id;
+      await this.$store.dispatch("Profile/addAddress", payload);
+      this.resetAddressToEdit();
+      this.showAddressForm = false;
+    },
+    async updateAddress(address) {
+      let payload = Object.assign({}, address);
+      payload.userId = this.user.id;
+      await this.$store.dispatch("Profile/updateAddress", payload);
+      this.resetAddressToEdit();
+      this.showAddressForm = false;
+    },
+    async deleteAddress(addressId) {
+      await this.$store.dispatch("Profile/deleteAddress", addressId);
+      this.resetAddressToEdit();
+      this.showAddressForm = false;
+    },
+  },
+  computed: {
+    ...mapState("Profile", ["addresses"]),
+    ...mapState("Auth", ["user"]),
   },
 };
 </script>
+
+<style scoped></style>

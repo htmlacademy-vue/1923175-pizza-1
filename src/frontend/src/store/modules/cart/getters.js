@@ -13,4 +13,26 @@ export default {
       ) + additionalAmount
     );
   },
+  addresses(state, getters, rootState) {
+    let addresses = [
+      {
+        name: "Заберу сам",
+        street: "",
+        building: "",
+        comment: "",
+        id: "self-delivery",
+      },
+      {
+        name: "Новый адрес",
+        street: "",
+        building: "",
+        comment: "",
+        id: "new-address",
+      },
+    ];
+    if (rootState.Auth.isAuthenticated) {
+      addresses = addresses.concat(rootState.Profile.addresses);
+    }
+    return addresses;
+  },
 };

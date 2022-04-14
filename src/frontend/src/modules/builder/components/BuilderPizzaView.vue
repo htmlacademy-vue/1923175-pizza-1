@@ -102,6 +102,7 @@ export default {
         sizes: this.sizes,
         pizzaPrice: this.pizzaPrice,
       });
+
       this.resetState();
     },
   },

@@ -14,25 +14,19 @@
       <router-link to="/cart">{{ totalPrice }} ₽</router-link>
     </div>
     <div class="header__user">
-      <template v-if="isAuthorized">
+      <template v-if="isAuthenticated">
         <router-link to="/profile" class="header__login">
           <picture>
-            <source
-              type="image/webp"
-              srcset="
-                @/assets/img/users/user5.webp    1x,
-                @/assets/img/users/user5@2x.webp 2x
-              "
-            />
+            <source type="image/webp" :srcset="user.avatar" />
             <img
-              src="@/assets/img/users/user5.jpg"
-              srcset="@/assets/img/users/user5@2x.jpg"
-              alt="Василий Ложкин"
+              :src="user.avatar"
+              :srcset="user.avatar"
+              :alt="user.name"
               width="32"
               height="32"
             />
           </picture>
-          <span>Василий Ложкин</span>
+          <span>{{ user.name }}</span>
         </router-link>
       </template>
       <template v-else>
@@ -44,9 +38,11 @@
   </header>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
+import logout from "@/common/mixins/logout";
 export default {
   name: "AppLayoutHeader",
+  mixins: [logout],
   props: {
     isAuthorized: {
       type: Boolean,
@@ -55,6 +51,7 @@ export default {
   },
   computed: {
     ...mapGetters("Cart", ["totalPrice"]),
+    ...mapState("Auth", ["isAuthenticated", "user"]),
   },
 };
 </script>

@@ -11,7 +11,6 @@
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-import pizza from "@/static/pizza.json";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
@@ -19,11 +18,6 @@ import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 const { mapState, mapGetters } = createNamespacedHelpers("Builder");
 export default {
   name: "IndexHome",
-  data: () => {
-    return {
-      pizza,
-    };
-  },
   components: {
     BuilderDoughSelector,
     BuilderIngredientsSelector,

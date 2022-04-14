@@ -30,7 +30,7 @@
             >
               <SelectorItem :ingredient="ingredient" />
               <ItemCounter
-                :ingredient-id="ingredient.id"
+                :ingredient="ingredient"
                 :amount="ingredient.amount"
               />
             </li>

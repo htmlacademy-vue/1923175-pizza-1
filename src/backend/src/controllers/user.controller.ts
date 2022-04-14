@@ -73,6 +73,28 @@ export class UserController {
     @repository(UserCredentialsRepository) protected userCredentialRepository: UserCredentialsRepository,
   ) {}
 
+  @get('/users', {
+    responses: {
+      '200': {
+        description: 'Users',
+        content: {
+          'application/json': {
+            schema: {
+              'x-ts-type': User,
+            },
+          },
+        },
+      },
+    },
+  })
+  async getUsers(): Promise<User[]> {
+    try {
+      return await this.userRepository.find();
+    } catch {
+      throw new HttpErrors['400']('Возникла ошибка при получении юзеров');
+    }
+  }
+
   @oas.visibility(OperationVisibility.UNDOCUMENTED)
   @post('/signup', {
     responses: {
@@ -142,10 +164,6 @@ export class UserController {
 
   @authenticate('jwt')
   @get('/whoAmI')
-  @response(200, {
-    description: 'Authorized user object',
-    content: {'application/json': {schema: getModelSchemaRef(User)}}
-  })
   async whoAmI(): Promise<User> {
     try {
       return await this.userRepository.findById(this.user[securityId]);

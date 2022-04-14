@@ -5,7 +5,33 @@ import {
   ON_INCREASE_MISC,
   ON_REDUCE_MICS,
   ORDER_COMPLETED,
+  GET_MICS_LIST,
 } from "@/store/mutation-types";
+import { v4 as uuidv4 } from "uuid";
+import colaImg from "@/assets/img/cola.svg";
+import sauceImg from "@/assets/img/sauce.svg";
+import potatoImg from "@/assets/img/potato.svg";
+
+export async function query({ commit }) {
+  const images = [
+    { id: 1, image: colaImg },
+    { id: 2, image: sauceImg },
+    { id: 3, image: potatoImg },
+  ];
+
+  const data = await this.$api.misc.query();
+
+  const misc = data.map((item) => {
+    const img = images.find((it) => it.id === item.id);
+    return {
+      ...item,
+      image: img.image,
+      amount: 0,
+    };
+  });
+
+  commit(GET_MICS_LIST, misc);
+}
 
 export const onSubmit = ({ commit }, isOrderComplete) => {
   commit(ORDER_COMPLETED, isOrderComplete);
@@ -28,6 +54,7 @@ export const onAddToCart = ({ commit }, pizza) => {
     });
 
   commit(ADD_TO_CART, {
+    id: uuidv4(),
     amount: 1,
     name: pizza.pizzaName,
     dough: {
