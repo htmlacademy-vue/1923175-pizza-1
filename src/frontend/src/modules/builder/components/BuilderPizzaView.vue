@@ -14,9 +14,11 @@
       <div class="content__constructor">
         <div class="pizza" :class="getFoundation">
           <div class="pizza__wrapper">
-            <template v-for="(item, index) in getComputedClass">
-              <div :class="item" :key="index"></div>
-            </template>
+            <transition-group name="ingredients">
+              <template v-for="(item, index) in getComputedClass">
+                <div :class="item" :key="index"></div>
+              </template>
+            </transition-group>
           </div>
         </div>
       </div>
@@ -108,3 +110,21 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.ingredients {
+  &-item {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: all 1s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+</style>

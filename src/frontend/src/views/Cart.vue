@@ -147,12 +147,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-  opacity: 0;
+<style lang="scss" scoped>
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.5s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
 }
 </style>

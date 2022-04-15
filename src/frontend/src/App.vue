@@ -1,6 +1,12 @@
 <template>
   <AppLayout>
-    <router-view />
+    <transition
+      name="view"
+      appear
+      enter-active-class="animate__animated animate__bounceInRight"
+    >
+      <router-view />
+    </transition>
   </AppLayout>
 </template>
 <script>
