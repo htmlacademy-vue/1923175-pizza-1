@@ -76,7 +76,7 @@ export default {
     ...mapGetters("Cart", ["totalPrice", "addresses"]),
     ...mapState("Cart", [
       "cart",
-      "additionalItems",
+      "misc",
       "deliveryMethod",
       "newAddress",
     ]),
@@ -103,8 +103,8 @@ export default {
         userId: this.isAuthenticated ? this.user.id : null,
         phone: this.phone,
         address: this.getDeliveryAddress(),
-        cart: this.cart.map((p) => this.getPizzaPayload(p)),
-        misc: this.additionalItems
+        pizzas: this.cart.map((p) => this.getPizzaPayload(p)),
+        misc: this.misc
           .filter((i) => i.count > 0)
           .map((i) => ({ miscId: i.id, quantity: i.count })),
       };
@@ -113,8 +113,7 @@ export default {
     },
     resetState() {
       this.showPopup = false;
-      this.$store.dispatch("Cart/resetState");
-      this.$store.commit("Builder/resetState");
+      this.$store.dispatch("Builder/resetState");
     },
     getPizzaPayload(pizza) {
       return {
@@ -122,10 +121,10 @@ export default {
         sauceId: pizza.sauce.id,
         doughId: pizza.dough.id,
         sizeId: pizza.size.id,
-        quantity: pizza.count,
+        quantity: pizza.amount,
         ingredients: pizza.ingredients.map((i) => ({
           ingredientId: i.id,
-          quantity: i.count,
+          quantity: i.amount,
         })),
       };
     },
