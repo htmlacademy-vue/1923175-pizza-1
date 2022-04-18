@@ -5,7 +5,7 @@ import {
   ON_INCREASE_MISC,
   ON_REDUCE_MICS,
   ORDER_COMPLETED,
-  GET_MICS_LIST,
+  GET_MICS_LIST, RESET_STATE,
 } from "@/store/mutation-types";
 import { v4 as uuidv4 } from "uuid";
 import colaImg from "@/assets/img/cola.svg";
@@ -88,4 +88,8 @@ export const onReduceMisc = ({ commit }, item) => {
 
 export const onIncreaseMisc = ({ commit }, item) => {
   commit(ON_INCREASE_MISC, item);
+};
+
+export const resetState = ({ commit }) => {
+  commit(RESET_STATE);
 };

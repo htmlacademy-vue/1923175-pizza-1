@@ -42,7 +42,7 @@ export default {
     getPizzaPrice(pizza) {
       const sauce = this.sauces.find((e) => pizza.sauceId === e.id);
       const size = this.sizes.find((e) => pizza.sizeId === e.id);
-      const pizzaDough = this.dough.find((e) => pizza.doughId === e.id);
+      const pizzaDough = this.doughList.find((e) => pizza.doughId === e.id);
       const ingredientsPrice = pizza.ingredients
         .map((e) => this.ingredients[e.ingredientId].price * e.quantity)
         .reduce((a, b) => a + b, 0);
@@ -54,7 +54,7 @@ export default {
     },
     getMiscPrice(misc) {
       return (
-        this.additionalItems.find((e) => misc.miscId === e.id).price *
+        this.misc.find((e) => misc.miscId === e.id).price *
         misc.quantity
       );
     },
@@ -81,8 +81,8 @@ export default {
   },
   computed: {
     ...mapState("Orders", ["orders"]),
-    ...mapState("Builder", ["dough", "sizes", "sauces", "ingredients"]),
-    ...mapState("Cart", ["additionalItems"]),
+    ...mapState("Builder", ["doughList", "sizes", "sauces", "ingredients"]),
+    ...mapState("Cart", ["misc"]),
   },
 };
 </script>

@@ -43,7 +43,7 @@ export default {
     preparePizzaPayload(pizza) {
       const name = pizza.name;
       const sauce = this.sauces.find((e) => pizza.sauceId === e.id);
-      const pizzaDough = this.dough.find((e) => pizza.doughId === e.id);
+      const pizzaDough = this.doughList.find((e) => pizza.doughId === e.id);
       const size = this.sizes.find((e) => pizza.sizeId === e.id);
       const ingredients = pizza.ingredients.map((e) => {
         let obj = Object.assign({}, this.ingredients[e.ingredientId]);
@@ -65,7 +65,7 @@ export default {
         size,
         ingredients,
         price,
-        count,
+        amount: count,
       };
     },
     async deleteOrder() {
@@ -75,25 +75,25 @@ export default {
       this.$store.dispatch("Cart/resetState");
       const order = this.orders.find((e) => e.id === this.orderId);
       order.orderPizzas.forEach((pizza) => {
-        this.$store.commit("Cart/addPizza", this.preparePizzaPayload(pizza));
+        this.$store.commit("Cart/ADD_TO_CART", this.preparePizzaPayload(pizza));
       });
       if ("orderMisc" in order) {
         order.orderMisc
           .map((e) => ({ id: e.miscId, count: e.quantity }))
-          .forEach((e) => this.$store.commit("Cart/setAdditionalItemCount", e));
+          .forEach((e) => this.$store.commit("Cart/ON_INCREASE_MISC", e));
       }
       const deliveryMethod = this.$store.getters["Cart/addresses"]
         .map((e) => e.id)
         .includes(order.addressId)
         ? order.addressId
         : "self-delivery";
-      this.$store.commit("Cart/setDeliveryMethod", deliveryMethod);
-      this.$store.commit("Cart/setPhone", order.phone);
+      this.$store.commit("Cart/SET_DELIVERY_METHOD", deliveryMethod);
+      this.$store.commit("Cart/SET_PHONE", order.phone);
       this.$router.push("/cart");
     },
   },
   computed: {
-    ...mapState("Builder", ["dough", "sizes", "sauces", "ingredients"]),
+    ...mapState("Builder", ["doughList", "sizes", "sauces", "ingredients"]),
     ...mapState("Orders", ["orders"]),
   },
 };

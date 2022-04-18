@@ -2,7 +2,7 @@
   <li class="order__item">
     <div class="product">
       <img
-        src="img/product.svg"
+        src="@/assets/img/product.svg"
         class="product__img"
         width="56"
         height="56"
@@ -37,20 +37,12 @@ export default {
     pizza: { type: Object, required: true },
   },
   computed: {
-    ...mapState("Builder", [
-      "dough",
-      "sizes",
-      "sauces",
-      "ingredients",
-      "ingredientsArray",
-    ]),
+    ...mapState("Builder", ["doughList", "sizes", "sauces", "ingredients"]),
     ingredientIds() {
       return this.pizza.ingredients.map((e) => e.ingredientId);
     },
     selectedIngredients() {
-      return this.ingredientsArray.filter((e) =>
-        this.ingredientIds.includes(e.id)
-      );
+      return this.ingredients.filter((e) => this.ingredientIds.includes(e.id));
     },
     ingredients_lower() {
       return this.selectedIngredients
@@ -64,7 +56,7 @@ export default {
       return this.sizes.find((e) => this.pizza.sizeId === e.id);
     },
     pizzaDough() {
-      return this.dough.find((e) => this.pizza.doughId === e.id);
+      return this.doughList.find((e) => this.pizza.doughId === e.id);
     },
     pizzaPrice() {
       const ingredientsPrice = this.pizza.ingredients

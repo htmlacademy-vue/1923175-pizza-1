@@ -74,12 +74,7 @@ export default {
   },
   computed: {
     ...mapGetters("Cart", ["totalPrice", "addresses"]),
-    ...mapState("Cart", [
-      "cart",
-      "additionalItems",
-      "deliveryMethod",
-      "newAddress",
-    ]),
+    ...mapState("Cart", ["cart", "misc", "deliveryMethod", "newAddress"]),
     ...mapState("Auth", ["isAuthenticated", "user"]),
     isCartEmpty() {
       return this.cart.length === 0;
@@ -103,8 +98,8 @@ export default {
         userId: this.isAuthenticated ? this.user.id : null,
         phone: this.phone,
         address: this.getDeliveryAddress(),
-        cart: this.cart.map((p) => this.getPizzaPayload(p)),
-        misc: this.additionalItems
+        pizzas: this.cart.map((p) => this.getPizzaPayload(p)),
+        misc: this.misc
           .filter((i) => i.count > 0)
           .map((i) => ({ miscId: i.id, quantity: i.count })),
       };
@@ -113,8 +108,8 @@ export default {
     },
     resetState() {
       this.showPopup = false;
+      this.$store.dispatch("Builder/resetState");
       this.$store.dispatch("Cart/resetState");
-      this.$store.commit("Builder/resetState");
     },
     getPizzaPayload(pizza) {
       return {
@@ -122,10 +117,10 @@ export default {
         sauceId: pizza.sauce.id,
         doughId: pizza.dough.id,
         sizeId: pizza.size.id,
-        quantity: pizza.count,
+        quantity: pizza.amount,
         ingredients: pizza.ingredients.map((i) => ({
           ingredientId: i.id,
-          quantity: i.count,
+          quantity: i.amount,
         })),
       };
     },
@@ -147,12 +142,20 @@ export default {
 };
 </script>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+<style lang="scss" scoped>
+.layout-form {
+  height: calc(100vh - 60px);
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-  opacity: 0;
+
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.5s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
 }
 </style>

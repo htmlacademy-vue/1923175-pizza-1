@@ -90,3 +90,16 @@ export default {
   },
 };
 </script>
+<style>
+.sign-form {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  transform: none;
+  margin: auto;
+  width: 450px;
+  height: 380px;
+}
+</style>
