@@ -74,12 +74,7 @@ export default {
   },
   computed: {
     ...mapGetters("Cart", ["totalPrice", "addresses"]),
-    ...mapState("Cart", [
-      "cart",
-      "misc",
-      "deliveryMethod",
-      "newAddress",
-    ]),
+    ...mapState("Cart", ["cart", "misc", "deliveryMethod", "newAddress"]),
     ...mapState("Auth", ["isAuthenticated", "user"]),
     isCartEmpty() {
       return this.cart.length === 0;
@@ -114,6 +109,7 @@ export default {
     resetState() {
       this.showPopup = false;
       this.$store.dispatch("Builder/resetState");
+      this.$store.dispatch("Cart/resetState");
     },
     getPizzaPayload(pizza) {
       return {
@@ -147,6 +143,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.layout-form {
+  height: calc(100vh - 60px);
+}
+
 .fade {
   &-enter-active,
   &-leave-active {

@@ -11,6 +11,7 @@ import {
   NEW_ADDRESS_SET_STREET,
   NEW_ADDRESS_SET_BUILDING,
   NEW_ADDRESS_SET_FLAT,
+  RESET_STATE,
 } from "@/store/mutation-types";
 
 export default {
@@ -72,5 +73,16 @@ export default {
   },
   [NEW_ADDRESS_SET_FLAT](state, payload) {
     state.newAddress.flat = payload;
+  },
+  [RESET_STATE](state) {
+    state.cart = [];
+    state.misc.forEach((el) => {
+      if (el.count > 0) {
+        el.count = 0;
+      }
+    });
+    state.pizzaCounter = 0;
+    state.newAddress = { street: "", building: "", flat: "" };
+    state.deliveryMethod = "self-delivery";
   },
 };
